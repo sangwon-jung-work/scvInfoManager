@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+        <script type="text/javascript" src="/js/tui-grid.js"></script>
+        <link rel="stylesheet" href="/css/tui-grid.css"/>
+        <link rel="stylesheet" href="/css/main.css"/>
+
+        <title>구입목록</title>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+
+        <div class="contentMain" >
+
+            <h1 id="h1area">구입목록</h1>
+
+            <div class="conditionArea">
+
+                <table id="tableArea">
+                    <tr>
+                        <td>조회조건을 선택하세요!</td>
+                    </tr>
+                    <tr>
+                        <td>종류</td>
+                        <td>
+                            <select>
+                                <option>전체</option>
+                                <option>블루레이</option>
+                                <option>DVD</option>
+                                <option>CD</option>
+                                <option>서적</option>
+                                <option>피규어</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="gridArea">
+                <div id="grid"></div>
+            </div>
+
+        </div>
+    </body>
+    <script type="text/javascript" >
+        const grid = new tui.Grid({
+            el: document.getElementById('grid'),
+            data: [{
+                    id: 549731,
+                    name: 'Beautiful Lies',
+                    artist: 'Birdy',
+                    release: '2016.03.26',
+                    type: 'Deluxe',
+                    typeCode: '1',
+                    genre: 'Pop',
+                    genreCode: '1',
+                    grade: '2',
+                    price: 10000,
+                    downloadCount: 1000,
+                    listenCount: 5000
+                    },
+                    {
+                    id: 436461,
+                    name: 'X',
+                    artist: 'Ed Sheeran',
+                    release: '2014.06.24',
+                    type: 'Deluxe',
+                    typeCode: '1',
+                    genre: 'Pop',
+                    genreCode: '1',
+                    grade: '3',
+                    price: 20000,
+                    downloadCount: 1000,
+                    listenCount: 5000
+                    }],
+            columns: [
+                {
+                header: 'Name',
+                name: 'name'
+                },
+                {
+                header: 'Artist',
+                name: 'artist'
+                },
+                {
+                header: 'Type',
+                name: 'type'
+                },
+                {
+                header: 'Release',
+                name: 'release'
+                },
+                {
+                header: 'Genre',
+                name: 'genre'
+                }
+            ]
+        });
+    </script>
+</html>
