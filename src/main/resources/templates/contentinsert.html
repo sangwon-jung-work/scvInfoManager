@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+
+        <link rel="stylesheet" href="/css/main.css"/>
+
+        <title>구입목록 입력</title>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+
+        <div class="contentMain" >
+
+            <h1 id="h1area">구입목록</h1>
+
+            <div class="conditionArea">
+
+                <form action="#" th:action="@{/buy/addContent}" th:object="${ContentList}" method="post">
+
+                    <table id="tableArea">
+                        
+                        <tr>
+                            <td>구입구분코드</td>
+                            <td>
+                                <select th:field="*{contentTypeCd}">
+                                    <option th:value="'Bluray'" th:text="블루레이"></option>
+                                    <option th:value="'DVD'" th:text="DVD"></option>
+                                    <option th:value="'Album'" th:text="CD"></option>
+                                    <option th:value="'Book'" th:text="서적"></option>
+                                    <option th:value="'Figure'" th:text="피규어"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>제목</td>
+                            <td><input type="text" th:field="*{title}" /></td>
+                        </tr>
+                        <tr>
+                            <td>아티스트</td>
+                            <td><input type="text" th:field="*{artist}" /></td>
+                        </tr>
+                        <tr>
+                            <td>비고</td>
+                            <td><input type="text" th:field="*{contentNote}" /></td>
+                        </tr>
+                        <tr>
+                            <td>버전</td>
+                            <td><input type="text" th:field="*{version}" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>장르</td>
+                            <td><input type="text" th:field="*{genre}" /></td>
+                        </tr>
+                        <tr>
+                            <td>성인구분</td>
+                            <td>
+                                <select th:field="*{xrateYn}">
+                                    <option th:value="'N'" th:text="N"></option>
+                                    <option th:value="'Y'" th:text="Y"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>감상정리여부</td>
+                            <td>
+                                <select th:field="*{writeReviewYn}">
+                                    <option th:value="'N'" th:text="N"></option>
+                                    <option th:value="'Y'" th:text="Y"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>재감상여부</td>
+                            <td>
+                                <select th:field="*{reViewYn}">
+                                    <option th:value="'N'" th:text="N"></option>
+                                    <option th:value="'Y'" th:text="Y"></option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>수령일자</td>
+                            <td><input type="date" th:field="*{receiptDate}" /></td>
+                        </tr>
+                        <tr>
+                            <td>관련글</td>
+                            <td><input type="text" th:field="*{contentBlogUrl}" /></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>상품발매국가</td>
+                            <td><input type="text" th:field="*{salesCountry}" /></td>
+                        </tr>
+                        <tr>
+                            <td>상품종류</td>
+                            <td><input type="text" th:field="*{conditionType}" /></td>
+                        </tr>
+                        <tr>
+                            <td>상품가격통화</td>
+                            <td><input type="text" th:field="*{currency}" /></td>
+                        </tr>
+                        <tr>
+                            <td>상품금액</td>
+                            <td><input type="number" th:field="*{amount}" /></td>
+                        </tr>
+                        <tr>
+                            <td>상품주문정보</td>
+                            <td><input type="text" th:field="*{orderNum}" /></td>
+                        </tr>
+                        <tr>
+                            <td>상품구입처</td>
+                            <td><input type="text" th:field="*{buyingLocation}" /></td>
+                        </tr>
+                        <tr>
+                            <td>결제수단</td>
+                            <td><input type="text" th:field="*{paymentMethod}" /></td>
+                        </tr>
+                        <tr>
+                            <td>발매일자</td>
+                            <td><input type="date" th:field="*{releaseDate}" /></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>메모</td>
+                            <td><input type="text" th:field="*{memo}" /></td>
+                        </tr>
+
+                        <tr>
+                            <td><input type="submit" id="dataInput" value="입력" ></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" >
+        
+        // 종류 변경시 그리드 데이터 재조회
+        $("#contentTypeCd").change(function() {
+
+        });
+
+    </script>
+</html>
