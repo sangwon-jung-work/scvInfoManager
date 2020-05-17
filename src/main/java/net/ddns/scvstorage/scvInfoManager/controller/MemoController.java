@@ -2,8 +2,8 @@ package net.ddns.scvstorage.scvInfoManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,34 +27,36 @@ public class MemoController {
     @Autowired
     private MemoTimeRepository memoTimeRepository;
 
+
     @GetMapping("/commonCdList")
     public Iterable<CommonCdList> selectCommonCdList() {
         return commonCdListRepository.findAll();
     }
+
+    @PostMapping("/addCommoncd")
+    CommonCdList addCommonCd(@ModelAttribute CommonCdList commonCdList) {
+        return commonCdListRepository.save(commonCdList);
+    }
+
 
     @GetMapping("/locationCdList")
     public Iterable<LocationCdList> selectLocationCdList() {
         return locationCdListRepository.findAll();
     }
 
+    @PostMapping("/addLocationcd")
+    LocationCdList addLocationCdList(@ModelAttribute LocationCdList locationCdList) {
+        return locationCdListRepository.save(locationCdList);
+    }
+
+
     @GetMapping("/memoTime")
     public Iterable<MemoTime> selectMemoTime() {
         return memoTimeRepository.findAll();
     }
 
-
-    @PostMapping("/addCommonCdList")
-    CommonCdList addCommonCdList(@RequestBody CommonCdList commonCdList) {
-        return commonCdListRepository.save(commonCdList);
-    }
-
-    @PostMapping("/addLocationCdList")
-    LocationCdList addLocationCdList(@RequestBody LocationCdList locationCdList) {
-        return locationCdListRepository.save(locationCdList);
-    }
-
-    @PostMapping("/addMemoTime")
-    MemoTime addMemoTime(@RequestBody MemoTime memoTime) {
+    @PostMapping("/addMemotime")
+    MemoTime addMemoTime(@ModelAttribute MemoTime memoTime) {
         return memoTimeRepository.save(memoTime);
     }
 }

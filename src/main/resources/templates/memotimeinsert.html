@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+
+        <link rel="stylesheet" href="/css/main.css"/>
+
+        <title>메모기록 입력</title>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+
+        <div class="contentMain" >
+
+            <h1 id="h1area">메모기록</h1>
+
+            <div class="conditionArea">
+
+                <form action="#" th:action="@{/memo/addMemotime}" th:object="${MemoTime}" method="post">
+
+                    <table id="tableArea">
+                        
+                        <tr>
+                            <td>방위치코드</td>
+                            <td><input type="text" th:field="*{roomLocationCd}" /></td>
+                        </tr>
+                        <tr>
+                            <td>메모대상(종류) 코드</td>
+                            <td><input type="text" th:field="*{memoTypeCd}" /></td>
+                        </tr>
+                        <tr>
+                            <td>메모일자</td>
+                            <td><input type="date" th:field="*{memoDate}" /></td>
+                        </tr>
+                        <tr>
+                            <td>비고</td>
+                            <td><input type="text" th:field="*{note}" /></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" id="dataInput" value="입력" ></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" >
+        
+        // 종류 변경시 그리드 데이터 재조회
+        $("#contentTypeCd").change(function() {
+
+        });
+
+    </script>
+</html>
