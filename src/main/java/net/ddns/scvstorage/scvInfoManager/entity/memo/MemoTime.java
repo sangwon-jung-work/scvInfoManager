@@ -4,9 +4,11 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /** 메모기록 테이블 구조
  *  swjung
@@ -17,6 +19,7 @@ import javax.persistence.TemporalType;
 public class MemoTime {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer memoTimeId; // 메모기록ID
 
     @Column(unique = true)
@@ -24,7 +27,7 @@ public class MemoTime {
     @Column(unique = true)
     private String memoTypeCd; // 메모대상(종류) 코드
     @Column(unique = true)
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date memoDate; // 메모일자
     
     @Column

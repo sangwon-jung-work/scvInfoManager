@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /** 상품구입정보 테이블 구조
  *  swjung
@@ -43,7 +43,7 @@ public class ContentList {
     @Column
     private String reViewYn; // 재감상여부
     @Column
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date receiptDate; // 수령일자
     @Column
     private String contentBlogUrl; // 관련글
@@ -55,7 +55,7 @@ public class ContentList {
     @Column
     private String currency; // 상품가격통화
     @Column
-    private int amount; // 상품금액
+    private Float amount; // 상품금액
     @Column
     private String orderNum; // 상품주문정보
     @Column
@@ -63,8 +63,10 @@ public class ContentList {
     @Column
     private String paymentMethod; // 결제수단
     @Column
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate; // 발매일자
+    @Column
+    private Integer shippingInfoId; // 배송정보ID
 
     @Column
     private String memo; // 메모
@@ -189,11 +191,11 @@ public class ContentList {
         this.currency = currency;
     }
 
-    public int getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
@@ -229,6 +231,14 @@ public class ContentList {
         this.releaseDate = releaseDate;
     }
 
+    public Integer getShippingInfoId() {
+        return shippingInfoId;
+    }
+
+    public void setShippingInfoId(Integer shippingInfoId) {
+        this.shippingInfoId = shippingInfoId;
+    }
+    
     public String getMemo() {
         return memo;
     }
@@ -244,8 +254,8 @@ public class ContentList {
                 + contentListId + ", contentNote=" + contentNote + ", contentTypeCd=" + contentTypeCd + ", currency="
                 + currency + ", genre=" + genre + ", memo=" + memo + ", orderNum=" + orderNum + ", paymentMethod="
                 + paymentMethod + ", reViewYn=" + reViewYn + ", receiptDate=" + receiptDate + ", releaseDate="
-                + releaseDate + ", salesCountry=" + salesCountry + ", title=" + title + ", version=" + version
-                + ", writeReviewYn=" + writeReviewYn + ", xrateYn=" + xrateYn + "]";
+                + releaseDate + ", salesCountry=" + salesCountry + ", shippingInfoId=" + shippingInfoId + ", title="
+                + title + ", version=" + version + ", writeReviewYn=" + writeReviewYn + ", xrateYn=" + xrateYn + "]";
     }
 
 }

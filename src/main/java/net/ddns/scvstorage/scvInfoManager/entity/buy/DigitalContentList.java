@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /** 디지털음원 구입정보 테이블 구조
  *  swjung
@@ -39,20 +39,20 @@ public class DigitalContentList {
     private int bitrate; // 비트레이트
 
     @Column
-    private float size; // 용량(MB)
+    private Float size; // 용량(MB)
     @Column
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date buyingDate; // 구입일자
     @Column
     private String currency; // 통화
     @Column
-    private int amount; // 가격
+    private Float amount; // 가격
     @Column
     private String buyingLocation; // 구입처
     @Column
     private String releaseLabel; // 레이블
     @Column
-    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate; // 발매일자
 
     @Column
@@ -122,11 +122,11 @@ public class DigitalContentList {
         this.bitrate = bitrate;
     }
 
-    public float getSize() {
+    public Float getSize() {
         return size;
     }
 
-    public void setSize(float size) {
+    public void setSize(Float size) {
         this.size = size;
     }
 
@@ -146,11 +146,11 @@ public class DigitalContentList {
         this.currency = currency;
     }
 
-    public int getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 

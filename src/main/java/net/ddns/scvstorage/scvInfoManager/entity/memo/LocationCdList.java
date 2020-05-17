@@ -2,6 +2,8 @@ package net.ddns.scvstorage.scvInfoManager.entity.memo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /** 방위치관리 테이블 구조
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 public class LocationCdList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer locationCdListId; // 방위치관리ID
 
     @Column(unique = true)

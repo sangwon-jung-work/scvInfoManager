@@ -1,12 +1,10 @@
 package net.ddns.scvstorage.scvInfoManager.entity.memo;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /** 공통코드관리 테이블 구조
  *  swjung
@@ -17,6 +15,7 @@ import javax.persistence.TemporalType;
 public class CommonCdList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer commonCdListId; // 공통코드관리ID
 
     @Column(unique = true)
@@ -27,10 +26,6 @@ public class CommonCdList {
 
     @Column
     private String cdNm; // 공통코드명
-
-    @Column
-    @Temporal(TemporalType.DATE)
-    private Date addDate; // 등록일자
 
     @Column
     private String note; // 비고
@@ -67,14 +62,6 @@ public class CommonCdList {
         this.cdNm = cdNm;
     }
 
-    public Date getAddDate() {
-        return addDate;
-    }
-
-    public void setAddDate(Date addDate) {
-        this.addDate = addDate;
-    }
-
     public String getNote() {
         return note;
     }
@@ -85,8 +72,8 @@ public class CommonCdList {
 
     @Override
     public String toString() {
-        return "CommonCdList [addDate=" + addDate + ", cd=" + cd + ", cdKind=" + cdKind + ", cdNm=" + cdNm
-                + ", commonCdListId=" + commonCdListId + ", note=" + note + "]";
+        return "CommonCdList [cd=" + cd + ", cdKind=" + cdKind + ", cdNm=" + cdNm + ", commonCdListId=" + commonCdListId
+                + ", note=" + note + "]";
     }
 
 }

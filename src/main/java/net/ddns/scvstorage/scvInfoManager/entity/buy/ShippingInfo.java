@@ -19,12 +19,9 @@ public class ShippingInfo {
     private Integer shippingInfoId; // 배송정보ID
 
     @Column
-    private int contentListId; // 구입정보ID
-
-    @Column
     private String currency; // 배송가격통화
     @Column
-    private int amount; // 배송비
+    private Float amount; // 배송비
     @Column
     private String orderNum; // 배송주문번호
     @Column
@@ -43,14 +40,6 @@ public class ShippingInfo {
         this.shippingInfoId = shippingInfoId;
     }
 
-    public int getContentListId() {
-        return contentListId;
-    }
-
-    public void setContentListId(int contentListId) {
-        this.contentListId = contentListId;
-    }
-
     public String getCurrency() {
         return currency;
     }
@@ -59,11 +48,11 @@ public class ShippingInfo {
         this.currency = currency;
     }
 
-    public int getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
@@ -101,9 +90,9 @@ public class ShippingInfo {
 
     @Override
     public String toString() {
-        return "ShippingInfo [amount=" + amount + ", buyingLocation=" + buyingLocation + ", contentListId="
-                + contentListId + ", currency=" + currency + ", memo=" + memo + ", orderNum=" + orderNum
-                + ", paymentMethod=" + paymentMethod + ", shippingInfoId=" + shippingInfoId + "]";
+        return "ShippingInfo [amount=" + amount + ", buyingLocation=" + buyingLocation + ", currency=" + currency
+                + ", memo=" + memo + ", orderNum=" + orderNum + ", paymentMethod=" + paymentMethod + ", shippingInfoId="
+                + shippingInfoId + "]";
     }
 
 }
