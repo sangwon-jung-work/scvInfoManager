@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+
+        <link rel="stylesheet" href="/css/main.css"/>
+
+        <title>배송정보 입력</title>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+
+        <div class="contentMain" >
+
+            <h1 id="h1area">배송정보</h1>
+
+            <div class="conditionArea">
+
+                <form action="#" th:action="@{/buy/addShippingInfo}" th:object="${ShippingInfo}" method="post">
+
+                    <table id="tableArea">
+                        
+                        <tr>
+                            <td>배송가격통화</td>
+                            <td><input type="text" th:field="*{currency}" /></td>
+                        </tr>
+                        <tr>
+                            <td>배송비</td>
+                            <td><input type="text" th:field="*{amount}" /></td>
+                        </tr>
+                        <tr>
+                            <td>배송주문번호</td>
+                            <td><input type="text" th:field="*{orderNum}" /></td>
+                        </tr>
+                        <tr>
+                            <td>배송처</td>
+                            <td><input type="text" th:field="*{buyingLocation}" /></td>
+                        </tr>
+                        <tr>
+                            <td>결제수단</td>
+                            <td><input type="text" th:field="*{paymentMethod}" /></td>
+                        </tr>
+                        <tr>
+                            <td>메모</td>
+                            <td><input type="text" th:field="*{memo}" /></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" id="dataInput" value="입력" ></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" >
+        
+        // 종류 변경시 그리드 데이터 재조회
+        $("#contentTypeCd").change(function() {
+
+        });
+
+    </script>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
+
+        <link rel="stylesheet" href="/css/main.css"/>
+
+        <title>디지털 구입목록 입력</title>
+    </head>
+    <body>
+        <script>
+            
+        </script>
+
+        <div class="contentMain" >
+
+            <h1 id="h1area">디지털 구입목록</h1>
+
+            <div class="conditionArea">
+
+                <form action="#" th:action="@{/buy/addDContent}" th:object="${DigitalContentList}" method="post">
+
+                    <table id="tableArea">
+                        
+                        <tr>
+                            <td>제목</td>
+                            <td><input type="text" th:field="*{title}" /></td>
+                        </tr>
+                        <tr>
+                            <td>아티스트</td>
+                            <td><input type="text" th:field="*{artist}" /></td>
+                        </tr>
+                        <tr>
+                            <td>앨범</td>
+                            <td><input type="text" th:field="*{album}" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>포멧</td>
+                            <td><input type="text" th:field="*{format}" /></td>
+                        </tr>
+                        <tr>
+                            <td>샘플링레이트</td>
+                            <td><input type="number" th:field="*{sampleRate}" /></td>
+                        </tr>
+                        <tr>
+                            <td>비트</td>
+                            <td><input type="number" th:field="*{bitDepth}" /></td>
+                        </tr>
+                        <tr>
+                            <td>비트레이트</td>
+                            <td><input type="number" th:field="*{bitrate}" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>용량(MB)</td>
+                            <td><input type="text" th:field="*{size}" /></td>
+                        </tr>
+                        <tr>
+                            <td>구입일자</td>
+                            <td><input type="datetime-local" th:field="*{buyingDate}" /></td>
+                        </tr>
+                        <tr>
+                            <td>통화</td>
+                            <td><input type="text" th:field="*{currency}" /></td>
+                        </tr>
+                        <tr>
+                            <td>가격</td>
+                            <td><input type="text" th:field="*{amount}" /></td>
+                        </tr>
+                        <tr>
+                            <td>구입처</td>
+                            <td><input type="text" th:field="*{buyingLocation}" /></td>
+                        </tr>
+                        <tr>
+                            <td>레이블</td>
+                            <td><input type="text" th:field="*{releaseLabel}" /></td>
+                        </tr>
+                        <tr>
+                            <td>발매일자</td>
+                            <td><input type="date" th:field="*{releaseDate}" /></td>
+                        </tr>
+
+                        <tr>
+                            <td>메모</td>
+                            <td><input type="text" th:field="*{memo}" /></td>
+                        </tr>
+
+                        <tr>
+                            <td><input type="submit" id="dataInput" value="입력" ></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </body>
+    <script type="text/javascript" >
+        
+        // 종류 변경시 그리드 데이터 재조회
+        $("#contentTypeCd").change(function() {
+            
+        });
+
+    </script>
+</html>
