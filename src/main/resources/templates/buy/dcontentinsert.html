@@ -16,7 +16,7 @@
 
             <div class="conditionArea">
 
-                <form action="#" th:action="@{/buy/dcontentList}" th:object="${DigitalContentList}" method="post">
+                <form action="#" th:action="@{/buy/dcontent}" th:object="${DigitalContentList}" method="post">
 
                     <table id="tableArea">
                         
@@ -94,10 +94,5 @@
     </body>
     <script type="text/javascript" >
         
-        // 종류 변경시 그리드 데이터 재조회
-        $("#contentTypeCd").change(function() {
-            
-        });
-
     </script>
 </html>
