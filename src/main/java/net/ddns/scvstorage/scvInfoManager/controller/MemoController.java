@@ -1,7 +1,10 @@
 package net.ddns.scvstorage.scvInfoManager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,35 +30,40 @@ public class MemoController {
     @Autowired
     private MemoTimeRepository memoTimeRepository;
 
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+    }
 
-    @GetMapping("/commonCdList")
+    @GetMapping("/comcd")
     public Iterable<CommonCdList> selectCommonCdList() {
         return commonCdListRepository.findAll();
     }
 
-    @PostMapping("/addCommoncd")
+    @PostMapping("/comcd")
     CommonCdList addCommonCd(@ModelAttribute CommonCdList commonCdList) {
         return commonCdListRepository.save(commonCdList);
     }
 
 
-    @GetMapping("/locationCdList")
+    @GetMapping("/locationcd")
     public Iterable<LocationCdList> selectLocationCdList() {
         return locationCdListRepository.findAll();
     }
 
-    @PostMapping("/addLocationcd")
+    @PostMapping("/locationcd")
     LocationCdList addLocationCdList(@ModelAttribute LocationCdList locationCdList) {
         return locationCdListRepository.save(locationCdList);
     }
 
 
-    @GetMapping("/memoTime")
+    @GetMapping("/memotime")
     public Iterable<MemoTime> selectMemoTime() {
         return memoTimeRepository.findAll();
     }
 
-    @PostMapping("/addMemotime")
+    @PostMapping("/memotime")
     MemoTime addMemoTime(@ModelAttribute MemoTime memoTime) {
         return memoTimeRepository.save(memoTime);
     }

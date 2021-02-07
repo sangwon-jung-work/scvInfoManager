@@ -13,12 +13,15 @@ import net.ddns.scvstorage.scvInfoManager.entity.memo.*;
 @RequestMapping("/web")
 public class WebController {
 
-    final String BUY_PATH = "/buy/";
-    final String MEMO_PATH = "/memo/";
+    final String BUY_PATH_U = "/buy/";
+    final String MEMO_PATH_U = "/memo/";
+
+    final String BUY_PATH_F = "buy/";
+    final String MEMO_PATH_F = "memo/";
 
     final String CON1_STR = "content";
     final String CON2_STR = "dcontent";
-    final String CON3_STR = "shipping";
+    final String CON3_STR = "shippinginfo";
 
     final String MEM1_STR = "comcd";
     final String MEM2_STR = "locationcd";
@@ -29,13 +32,13 @@ public class WebController {
 
 
     // 상품구입정보
-    @GetMapping(BUY_PATH + CON1_STR + LIST_STR)
+    @GetMapping(BUY_PATH_U + CON1_STR + LIST_STR)
     public String selectContentList() {
 
-        return CON1_STR + LIST_STR;
+        return BUY_PATH_F + CON1_STR + LIST_STR;
     }
 
-    @GetMapping(BUY_PATH + CON1_STR + INSERT_STR)
+    @GetMapping(BUY_PATH_U + CON1_STR + INSERT_STR)
     public String insertContent(Model model) {
 
         ContentList contentList = new ContentList();
@@ -46,17 +49,17 @@ public class WebController {
 
         model.addAttribute("ContentList", contentList);
 
-        return CON1_STR + INSERT_STR;
+        return BUY_PATH_F + CON1_STR + INSERT_STR;
     }
 
     // 디지털음원 구입정보
-    @GetMapping(BUY_PATH + CON2_STR + LIST_STR)
+    @GetMapping(BUY_PATH_U + CON2_STR + LIST_STR)
     public String selectDigitalContentList() {
 
-        return CON2_STR + LIST_STR;
+        return BUY_PATH_F + CON2_STR + LIST_STR;
     }
 
-    @GetMapping(BUY_PATH + CON2_STR + INSERT_STR)
+    @GetMapping(BUY_PATH_U + CON2_STR + INSERT_STR)
     public String insertDigitalContent(Model model) {
 
         DigitalContentList digitalContentList = new DigitalContentList();
@@ -65,65 +68,65 @@ public class WebController {
 
         model.addAttribute("DigitalContentList", digitalContentList);
 
-        return CON2_STR + INSERT_STR;
+        return BUY_PATH_F + CON2_STR + INSERT_STR;
     }
 
     // 배송정보
-    @GetMapping(BUY_PATH + CON3_STR + LIST_STR)
+    @GetMapping(BUY_PATH_U + CON3_STR + LIST_STR)
     public String selectShippingInfoList() {
 
-        return CON3_STR + LIST_STR;
+        return BUY_PATH_F + CON3_STR + LIST_STR;
     }
 
-    @GetMapping(BUY_PATH + CON3_STR + INSERT_STR)
+    @GetMapping(BUY_PATH_U + CON3_STR + INSERT_STR)
     public String insertShippingInfo(Model model) {
 
         model.addAttribute("ShippingInfo", new ShippingInfo());
 
-        return CON3_STR + INSERT_STR;
+        return BUY_PATH_F + CON3_STR + INSERT_STR;
     }
 
 
     // 공통코드 관리
-    @GetMapping(MEMO_PATH + MEM1_STR + LIST_STR)
+    @GetMapping(MEMO_PATH_U + MEM1_STR + LIST_STR)
     public String selectCommonCdList() {
 
-        return MEM1_STR + LIST_STR;
+        return MEMO_PATH_F + MEM1_STR + LIST_STR;
     }
 
-    @GetMapping(MEMO_PATH + MEM1_STR + INSERT_STR)
+    @GetMapping(MEMO_PATH_U + MEM1_STR + INSERT_STR)
     public String insertCommonCd(Model model) {
 
         CommonCdList commonCdList = new CommonCdList();
 
         model.addAttribute("CommonCdList", commonCdList);
 
-        return MEM1_STR + INSERT_STR;
+        return MEMO_PATH_F + MEM1_STR + INSERT_STR;
     }
 
     // 방 위치관리
-    @GetMapping(MEMO_PATH + MEM2_STR + LIST_STR)
+    @GetMapping(MEMO_PATH_U + MEM2_STR + LIST_STR)
     public String selectLocationCdList() {
 
-        return MEM2_STR + LIST_STR;
+        return MEMO_PATH_F + MEM2_STR + LIST_STR;
     }
 
-    @GetMapping(MEMO_PATH + MEM2_STR + INSERT_STR)
+    @GetMapping(MEMO_PATH_U + MEM2_STR + INSERT_STR)
     public String insertLocationCd(Model model) {
 
         model.addAttribute("LocationCdList", new LocationCdList());
 
-        return MEM2_STR + INSERT_STR;
+        return MEMO_PATH_F + MEM2_STR + INSERT_STR;
     }
 
     // 메모기록
-    @GetMapping(MEMO_PATH + MEM3_STR + LIST_STR)
+    @GetMapping(MEMO_PATH_U + MEM3_STR + LIST_STR)
     public String selectMemoTime() {
 
-        return MEM3_STR + LIST_STR;
+        return MEMO_PATH_F + MEM3_STR + LIST_STR;
     }
 
-    @GetMapping(MEMO_PATH + MEM3_STR + INSERT_STR)
+    @GetMapping(MEMO_PATH_U + MEM3_STR + INSERT_STR)
     public String insertMemoTime(Model model) {
 
         MemoTime memoTime = new MemoTime();
@@ -132,6 +135,6 @@ public class WebController {
 
         model.addAttribute("MemoTime", memoTime);
 
-        return MEM3_STR + INSERT_STR;
+        return MEMO_PATH_F + MEM3_STR + INSERT_STR;
     }
 }
