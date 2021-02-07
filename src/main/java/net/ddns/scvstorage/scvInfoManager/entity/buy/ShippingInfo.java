@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 /** 배송정보 테이블 구조
  *  swjung
@@ -12,10 +16,13 @@ import javax.persistence.Id;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class ShippingInfo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Integer shippingInfoId; // 배송정보ID
 
     @Column
@@ -25,8 +32,10 @@ public class ShippingInfo {
     @Column
     private String orderNum; // 배송주문번호
     @Column
+    @NotNull
     private String buyingLocation; // 배송처
     @Column
+    @NotNull
     private String paymentMethod; // 결제수단
 
     @Column

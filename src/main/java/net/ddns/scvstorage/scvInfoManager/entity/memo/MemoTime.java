@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /** 메모기록 테이블 구조
@@ -16,18 +19,24 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class MemoTime {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Integer memoTimeId; // 메모기록ID
 
     @Column(unique = true)
+    @NotNull
     private String roomLocationCd; // 방위치코드
     @Column(unique = true)
+    @NotNull
     private String memoTypeCd; // 메모대상(종류) 코드
     @Column(unique = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     private Date memoDate; // 메모일자
     
     @Column

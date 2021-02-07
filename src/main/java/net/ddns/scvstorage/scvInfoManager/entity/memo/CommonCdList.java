@@ -5,6 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 /** 공통코드관리 테이블 구조
  *  swjung
@@ -12,19 +16,25 @@ import javax.persistence.Id;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class CommonCdList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Integer commonCdListId; // 공통코드관리ID
 
     @Column(unique = true)
+    @NotNull
     private String cdKind; // 공통코드 구분
     
     @Column(unique = true)
+    @NotNull
     private String cd; // 공통코드
 
     @Column
+    @NotNull
     private String cdNm; // 공통코드명
 
     @Column

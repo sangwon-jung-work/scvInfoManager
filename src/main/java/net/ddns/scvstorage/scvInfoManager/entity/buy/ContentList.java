@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /** 상품구입정보 테이블 구조
@@ -16,16 +19,21 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class ContentList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Integer contentListId; // 구입정보ID
 
     @Column
+    @NotNull
     private String contentTypeCd; // 구입구분코드
 
     @Column
+    @NotNull
     private String title; // 제목/타이틀
     @Column
     private String artist; // 아티스트
@@ -49,8 +57,10 @@ public class ContentList {
     private String contentBlogUrl; // 관련글
 
     @Column
+    @NotNull
     private String salesCountry; // 상품발매국가
     @Column
+    @NotNull
     private String conditionType; // 상품종류
     @Column
     private String currency; // 상품가격통화
@@ -59,11 +69,14 @@ public class ContentList {
     @Column
     private String orderNum; // 상품주문정보
     @Column
+    @NotNull
     private String buyingLocation; // 상품구입처
     @Column
+    @NotNull
     private String paymentMethod; // 결제수단
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     private Date releaseDate; // 발매일자
     @Column
     private Integer shippingInfoId; // 배송정보ID

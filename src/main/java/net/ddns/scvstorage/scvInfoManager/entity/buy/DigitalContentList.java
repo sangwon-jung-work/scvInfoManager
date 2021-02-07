@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /** 디지털음원 구입정보 테이블 구조
@@ -16,43 +19,57 @@ import org.springframework.format.annotation.DateTimeFormat;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 public class DigitalContentList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private Integer digitalContentListId; // 디지털음원구입정보ID
 
     @Column
+    @NotNull
     private String title; // 제목
     @Column
+    @NotNull
     private String artist; // 아티스트
     @Column
+    @NotNull
     private String album; // 앨범
 
     @Column
+    @NotNull
     private String format; // 포멧
     @Column
+    @NotNull
     private int sampleRate; // 샘플링레이트
     @Column
+    @NotNull
     private int bitDepth; // 비트
     @Column
     private int bitrate; // 비트레이트
 
     @Column
+    @NotNull
     private Float size; // 용량(MB)
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @NotNull
     private Date buyingDate; // 구입일자
     @Column
     private String currency; // 통화
     @Column
     private Float amount; // 가격
     @Column
+    @NotNull
     private String buyingLocation; // 구입처
     @Column
+    @NotNull
     private String releaseLabel; // 레이블
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     private Date releaseDate; // 발매일자
 
     @Column
