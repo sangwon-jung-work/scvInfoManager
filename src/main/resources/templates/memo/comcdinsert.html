@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-
-        <script type="text/javascript" src="/js/jquery-3.5.0.min.js"></script>
-
-        <link rel="stylesheet" href="/css/main.css"/>
-
-        <title>방 위치정보 입력</title>
+        <head th:replace="comm/header"> </head>
+        
+        <title>공통코드 입력</title>
     </head>
     <body>
         <script>
@@ -17,21 +12,25 @@
 
         <div class="contentMain" >
 
-            <h1 id="h1area">방 위치정보</h1>
+            <h1 id="h1area">공통코드</h1>
 
             <div class="conditionArea">
 
-                <form action="#" th:action="@{/memo/addLocationcd}" th:object="${LocationCdList}" method="post">
+                <form action="#" th:action="@{/memo/addCommoncd}" th:object="${CommonCdList}" method="post">
 
                     <table id="tableArea">
                         
                         <tr>
-                            <td>방위치 코드</td>
-                            <td><input type="text" th:field="*{locationCd}" /></td>
+                            <td>공통코드 구분</td>
+                            <td><input type="text" th:field="*{cdKind}" /></td>
                         </tr>
                         <tr>
-                            <td>방위치 설명(주소)</td>
-                            <td><input type="text" th:field="*{locationDesc}" /></td>
+                            <td>공통코드</td>
+                            <td><input type="text" th:field="*{cd}" /></td>
+                        </tr>
+                        <tr>
+                            <td>공통코드명</td>
+                            <td><input type="text" th:field="*{cdNm}" /></td>
                         </tr>
                         <tr>
                             <td>비고</td>
