@@ -16,9 +16,9 @@ public class StartedListener implements ApplicationListener<ApplicationStartedEv
 
     @Override
     public void onApplicationEvent(ApplicationStartedEvent arg0) {
-        System.out.println("====================================");
+        System.out.println("==========================================");
         System.out.println("Application is Started to " + active + "! port-" + port);
-        System.out.println("====================================");
+        System.out.println("==========================================");
     }
 
 }
