@@ -4,4 +4,4 @@
 
 ## 환경
 
-JDK 1.8, SpringBoot 2.2.6 / Spring 5.2.5
+JDK 11, SpringBoot 2.2.12 / Spring 5.2.12
