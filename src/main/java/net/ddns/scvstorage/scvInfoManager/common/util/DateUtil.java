@@ -460,16 +460,16 @@ public class DateUtil {
 		String xMon = "";
 		String xDay = "";
 		if (mon < 10) {
-			xMon = "0" + (new Integer(mon)).toString();
+			xMon = "0" + (Integer.valueOf(mon)).toString();
 		} else {
-			xMon = (new Integer(mon)).toString();
+			xMon = (Integer.valueOf(mon)).toString();
 		}
 		if (day < 10) {
-			xDay = "0" + (new Integer(day)).toString();
+			xDay = "0" + (Integer.valueOf(day)).toString();
 		} else {
-			xDay = (new Integer(day)).toString();
+			xDay = (Integer.valueOf(day)).toString();
 		}
-		String endDay = (new Integer(year)).toString() + "-" + xMon + "-"
+		String endDay = (Integer.valueOf(year)).toString() + "-" + xMon + "-"
 				+ xDay;
 		return endDay;
 	}
@@ -1469,7 +1469,7 @@ public class DateUtil {
 	 * @return {@link java.util.Date} object that changed
 	 */
 	public static Date replaceYear(Date date, int year) {
-		Assert.notNull(date);
+		Assert.notNull(date, "date must be not null");
 		Assert.isTrue(("" + year).length() <= 4, year
 				+ " must be less than 4-digit number.");
 
@@ -1551,7 +1551,7 @@ public class DateUtil {
 	}
 
 	private static int getLastDayOfMonthInt(String date) {
-		Assert.notNull(date);
+		Assert.notNull(date, "date must be not null");
 		Assert.isTrue(isDate(date), date + " must be in 'yyyy-MM-dd' pattern");
 		int month = Integer.parseInt(date.substring(5, 7));
 		int lastDayOfMonthValue = 0;
@@ -1572,7 +1572,7 @@ public class DateUtil {
 	 * @return true if it is a leap year
 	 */
 	public static boolean isLeapYear(String date) {
-		Assert.hasLength(date);
+		Assert.hasLength(date, "date string must not be null");
 		Assert.isTrue(isDate(date), date + " must be in 'yyyy-MM-dd' pattern");
 		return isLeapYear(Integer.parseInt(date.substring(0, 4)));
 	}
