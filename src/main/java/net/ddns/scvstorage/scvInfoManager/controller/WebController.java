@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import net.ddns.scvstorage.scvInfoManager.common.util.DateUtil;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.*;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.*;
-import net.ddns.scvstorage.scvInfoManager.repository.buy.ContentListRepository;
-import net.ddns.scvstorage.scvInfoManager.repository.buy.DigitalContentListRepository;
-import net.ddns.scvstorage.scvInfoManager.repository.buy.ShippingInfoRepository;
+import net.ddns.scvstorage.scvInfoManager.repository.buy.*;
+import net.ddns.scvstorage.scvInfoManager.repository.memo.*;
 import net.ddns.scvstorage.scvInfoManager.repository.common.ComboData;
 
 @Controller
@@ -47,6 +46,12 @@ public class WebController {
     @Autowired
     private ShippingInfoRepository shippingInfoRepository;
 
+    @Autowired
+    private LocationCdListRepository locationCdListRepository;
+
+    @Autowired
+    private CommonCdListRepository commonCdListRepository;
+    
     // 공통 YN 콤보 데이터
     List<String> commonYn = Arrays.asList("N","Y");
 
@@ -169,23 +174,6 @@ public class WebController {
     }
 
 
-    // 공통코드 관리
-    @GetMapping(MEMO_PATH_U + MEM1_STR + LIST_STR)
-    public String selectCommonCdList() {
-
-        return MEMO_PATH_F + MEM1_STR + LIST_STR;
-    }
-
-    @GetMapping(MEMO_PATH_U + MEM1_STR + INSERT_STR)
-    public String insertCommonCd(Model model) {
-
-        CommonCdList commonCdList = new CommonCdList();
-
-        model.addAttribute("CommonCdList", commonCdList);
-
-        return MEMO_PATH_F + MEM1_STR + INSERT_STR;
-    }
-
     // 방 위치관리
     @GetMapping(MEMO_PATH_U + MEM2_STR + LIST_STR)
     public String selectLocationCdList() {
@@ -196,9 +184,36 @@ public class WebController {
     @GetMapping(MEMO_PATH_U + MEM2_STR + INSERT_STR)
     public String insertLocationCd(Model model) {
 
+        // 기 생성된 방위치코드를 조회해 온다
+        List<ComboData> allLocationCd = locationCdListRepository.getLocationCdList();
+        model.addAttribute("allLocationCd", allLocationCd);
+        
+        // 화면 초기 데이터
         model.addAttribute("LocationCdList", new LocationCdList());
 
         return MEMO_PATH_F + MEM2_STR + INSERT_STR;
+    }
+
+    // 공통코드 관리
+    @GetMapping(MEMO_PATH_U + MEM1_STR + LIST_STR)
+    public String selectCommonCdList() {
+
+        return MEMO_PATH_F + MEM1_STR + LIST_STR;
+    }
+
+    @GetMapping(MEMO_PATH_U + MEM1_STR + INSERT_STR)
+    public String insertCommonCd(Model model) {
+
+        // 기 생성된 구분코드를 조회해 온다
+        List<ComboData> allCdKindList = commonCdListRepository.getCdKindList();
+        model.addAttribute("allCdKindList", allCdKindList);
+
+        CommonCdList commonCdList = new CommonCdList();
+
+        // 화면 초기 데이터
+        model.addAttribute("CommonCdList", commonCdList);
+
+        return MEMO_PATH_F + MEM1_STR + INSERT_STR;
     }
 
     // 메모기록
@@ -211,10 +226,20 @@ public class WebController {
     @GetMapping(MEMO_PATH_U + MEM3_STR + INSERT_STR)
     public String insertMemoTime(Model model) {
 
+        // 방위치코드를 조회해서 콤보로 만든다
+        List<ComboData> allLocationCd = locationCdListRepository.getLocationCdData();
+        model.addAttribute("allLocationCd", allLocationCd);
+
+        // 메모대상코드를 조회해서 콤보로 만든다
+        List<ComboData> memeKindComboData = commonCdListRepository.getCommonCdData("MEMO_KIND");
+        model.addAttribute("memeKindComboData", memeKindComboData);
+
         MemoTime memoTime = new MemoTime();
 
+        // 메모일자
         memoTime.setMemoDate( DateUtil.stringToDate( DateUtil.getCurrentDate("yyyy-MM-dd") ) );
 
+        // 화면 초기 데이터
         model.addAttribute("MemoTime", memoTime);
 
         return MEMO_PATH_F + MEM3_STR + INSERT_STR;
