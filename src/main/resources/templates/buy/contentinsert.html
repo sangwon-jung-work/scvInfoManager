@@ -161,7 +161,7 @@
                         <tr>
                             <td>배송정보</td>
                             <td>
-                                <select id="shippingInfoList" th:field="*{shippingInfoId}" >
+                                <select th:field="*{shippingInfoId}" >
                                     <option th:each="shipping : ${allshippingInfo}" 
                                             th:value="${shipping.code}" th:utext="${shipping.codename}" />
                                 </select>
