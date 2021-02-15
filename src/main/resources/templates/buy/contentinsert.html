@@ -51,14 +51,20 @@
 
                         <tr>
                             <td>장르</td>
-                            <td><input type="text" th:field="*{genre}" /></td>
+                            <td>
+                                <input type="text" th:field="*{genre}" list="genreList" />
+                                <datalist id="genreList" >
+                                    <option th:each="genre : ${allGenre}" 
+                                            th:value="${genre.code}" th:utext="${genre.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>성인구분</td>
                             <td>
                                 <select th:field="*{xrateYn}">
-                                    <option th:value="'N'" th:text="N"></option>
-                                    <option th:value="'Y'" th:text="Y"></option>
+                                    <option th:each="combo : ${ynComboValue}" 
+                                        th:value="${combo}" th:utext="${combo}" />
                                 </select>
                             </td>
                         </tr>
@@ -66,8 +72,8 @@
                             <td>감상정리여부</td>
                             <td>
                                 <select th:field="*{writeReviewYn}">
-                                    <option th:value="'N'" th:text="N"></option>
-                                    <option th:value="'Y'" th:text="Y"></option>
+                                    <option th:each="combo : ${ynComboValue}" 
+                                        th:value="${combo}" th:utext="${combo}" />
                                 </select>
                             </td>
                         </tr>
@@ -75,8 +81,8 @@
                             <td>재감상여부</td>
                             <td>
                                 <select th:field="*{reViewYn}">
-                                    <option th:value="'N'" th:text="N"></option>
-                                    <option th:value="'Y'" th:text="Y"></option>
+                                    <option th:each="combo : ${ynComboValue}" 
+                                        th:value="${combo}" th:utext="${combo}" />
                                 </select>
                             </td>
                         </tr>
@@ -91,15 +97,33 @@
                         
                         <tr>
                             <td>상품발매국가</td>
-                            <td><input type="text" th:field="*{salesCountry}" /></td>
+                            <td>
+                                <input type="text" th:field="*{salesCountry}" list="salesCountryList" />
+                                <datalist id="salesCountryList" >
+                                    <option th:each="salesCountry : ${allSalesCountry}" 
+                                            th:value="${salesCountry.code}" th:utext="${salesCountry.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>상품종류</td>
-                            <td><input type="text" th:field="*{conditionType}" /></td>
+                            <td>
+                                <input type="text" th:field="*{conditionType}" list="conditionTypeList" />
+                                <datalist id="conditionTypeList" >
+                                    <option th:each="conditionType : ${allConditionType}" 
+                                            th:value="${conditionType.code}" th:utext="${conditionType.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>상품가격통화</td>
-                            <td><input type="text" th:field="*{currency}" /></td>
+                            <td>
+                                <input type="text" th:field="*{currency}" list="currencyList" /></td>
+                                <datalist id="currencyList" >
+                                    <option th:each="currency : ${allCurrency}" 
+                                            th:value="${currency.code}" th:utext="${currency.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>상품금액</td>
@@ -111,17 +135,39 @@
                         </tr>
                         <tr>
                             <td>상품구입처</td>
-                            <td><input type="text" th:field="*{buyingLocation}" /></td>
+                            <td>
+                                <input type="text" th:field="*{buyingLocation}" list="buyingLocationList" />
+                                <datalist id="buyingLocationList" >
+                                    <option th:each="buyingLocation : ${allBuyingLocation}" 
+                                            th:value="${buyingLocation.code}" th:utext="${buyingLocation.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>결제수단</td>
-                            <td><input type="text" th:field="*{paymentMethod}" /></td>
+                            <td>
+                                <input type="text" th:field="*{paymentMethod}" list="paymentMethodList" />
+                                <datalist id="paymentMethodList" >
+                                    <option th:each="paymentMethod : ${allPaymentMethod}" 
+                                            th:value="${paymentMethod.code}" th:utext="${paymentMethod.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>발매일자</td>
                             <td><input type="date" th:field="*{releaseDate}" /></td>
                         </tr>
                         
+                        <tr>
+                            <td>배송정보</td>
+                            <td>
+                                <select id="shippingInfoList" th:field="*{shippingInfoId}" >
+                                    <option th:each="shipping : ${allshippingInfo}" 
+                                            th:value="${shipping.code}" th:utext="${shipping.codename}" />
+                                </select>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td>메모</td>
                             <td><input type="text" th:field="*{memo}" /></td>
