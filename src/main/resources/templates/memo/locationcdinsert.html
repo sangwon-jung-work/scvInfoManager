@@ -22,7 +22,13 @@
                         
                         <tr>
                             <td>방위치 코드</td>
-                            <td><input type="text" th:field="*{locationCd}" /></td>
+                            <td>
+                                <input type="text" th:field="*{locationCd}" list="locationCdList" />
+                                <datalist id="locationCdList" >
+                                    <option th:each="locationCd : ${allLocationCd}" 
+                                            th:value="${locationCd.code}" th:utext="${locationCd.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>방위치 설명(주소)</td>
