@@ -22,11 +22,21 @@
                         
                         <tr>
                             <td>방위치코드</td>
-                            <td><input type="text" th:field="*{roomLocationCd}" /></td>
+                            <td>
+                                <select th:field="*{roomLocationCd}" >
+                                    <option th:each="locationCd : ${allLocationCd}" 
+                                            th:value="${locationCd.code}" th:utext="${locationCd.codename}" />
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>메모대상(종류) 코드</td>
-                            <td><input type="text" th:field="*{memoTypeCd}" /></td>
+                            <td>
+                                <select th:field="*{memoTypeCd}" >
+                                    <option th:each="memeKind : ${memeKindComboData}" 
+                                            th:value="${memeKind.code}" th:utext="${memeKind.codename}" />
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td>메모일자</td>
