@@ -22,11 +22,19 @@
                         
                         <tr>
                             <td>공통코드 구분</td>
-                            <td><input type="text" th:field="*{cdKind}" /></td>
+                            <td>
+                                <input type="text" th:field="*{cdKind}" list="cdKindList" />
+                                <datalist id="cdKindList" >
+                                    <option th:each="cdKind : ${allCdKindList}" 
+                                            th:value="${cdKind.code}" th:utext="${cdKind.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>공통코드</td>
-                            <td><input type="text" th:field="*{cd}" /></td>
+                            <td>
+                                <input type="text" th:field="*{cd}" />
+                            </td>
                         </tr>
                         <tr>
                             <td>공통코드명</td>
