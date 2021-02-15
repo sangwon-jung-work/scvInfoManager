@@ -22,7 +22,13 @@
                         
                         <tr>
                             <td>배송가격통화</td>
-                            <td><input type="text" th:field="*{currency}" /></td>
+                            <td>
+                                <input type="text" th:field="*{currency}" list="currencyList" />
+                                <datalist id="currencyList" >
+                                    <option th:each="currency : ${allCurrency}" 
+                                            th:value="${currency.code}" th:utext="${currency.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>배송비</td>
@@ -34,11 +40,23 @@
                         </tr>
                         <tr>
                             <td>배송처</td>
-                            <td><input type="text" th:field="*{buyingLocation}" /></td>
+                            <td>
+                                <input type="text" th:field="*{buyingLocation}" list="buyingLocationList" />
+                                <datalist id="buyingLocationList" >
+                                    <option th:each="buyingLocation : ${allBuyingLocation}" 
+                                            th:value="${buyingLocation.code}" th:utext="${buyingLocation.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>결제수단</td>
-                            <td><input type="text" th:field="*{paymentMethod}" /></td>
+                            <td>
+                                <input type="text" th:field="*{paymentMethod}" list="paymentMethodList" />
+                                <datalist id="paymentMethodList" >
+                                    <option th:each="paymentMethod : ${allPaymentMethod}" 
+                                            th:value="${paymentMethod.code}" th:utext="${paymentMethod.codename}" />
+                                </datalist>
+                            </td>
                         </tr>
                         <tr>
                             <td>메모</td>
