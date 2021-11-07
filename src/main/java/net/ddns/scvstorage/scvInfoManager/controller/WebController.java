@@ -28,10 +28,10 @@ public class WebController {
 
     final String CON1_STR = "content";
     final String CON2_STR = "dcontent";
-    final String CON3_STR = "shippinginfo";
+    final String CON3_STR = "shipping";
 
     final String MEM1_STR = "comcd";
-    final String MEM2_STR = "locationcd";
+    final String MEM2_STR = "location";
     final String MEM3_STR = "memotime";
 
     final String LIST_STR = "list";
