@@ -1,5 +1,7 @@
 package net.ddns.scvstorage.scvInfoManager;
 
+import java.util.Arrays;
+
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +14,9 @@ public class ScvInfoManagerApplication {
 		SpringApplication application = new SpringApplication(ScvInfoManagerApplication.class);
 
 		application.setBannerMode(Banner.Mode.OFF);
+
+		// check system java args
+		//System.out.println("application args:" + Arrays.toString(args));
 
 		application.run(args);
 	}
