@@ -4,6 +4,9 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+## excetp mysql info properties ##
+dbconnection.properties
+
 ### STS ###
 .apt_generated
 .factorypath
