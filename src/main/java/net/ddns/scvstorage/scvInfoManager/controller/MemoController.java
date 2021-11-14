@@ -56,8 +56,8 @@ public class MemoController {
      * @return
      */
     @PostMapping("/comcd")
-    Iterable<CommonCdList> postCommonCd(@ModelAttribute Iterable<CommonCdList> commonCdList) {
-        return commonCdListRepository.saveAll(commonCdList);
+    CommonCdList postCommonCd(@ModelAttribute CommonCdList commonCdList) {
+        return commonCdListRepository.save(commonCdList);
     }
 
     /**
@@ -107,8 +107,8 @@ public class MemoController {
      * @return
      */
     @PostMapping("/location")
-    Iterable<LocationCdList> postLocationCdList(@ModelAttribute Iterable<LocationCdList> locationCdList) {
-        return locationCdListRepository.saveAll(locationCdList);
+    LocationCdList postLocationCdList(@ModelAttribute LocationCdList locationCdList) {
+        return locationCdListRepository.save(locationCdList);
     }
 
     /**
@@ -158,8 +158,8 @@ public class MemoController {
      * @return
      */
     @PostMapping("/memotime")
-    Iterable<MemoTime> postMemoTime(@ModelAttribute Iterable<MemoTime> memoTime) {
-        return memoTimeRepository.saveAll(memoTime);
+    MemoTime postMemoTime(@ModelAttribute MemoTime memoTime) {
+        return memoTimeRepository.save(memoTime);
     }
 
     /**

@@ -101,8 +101,8 @@ class BuyController {
      * @return
      */
     @PostMapping("/content")
-    Iterable<ContentList> postContentList(@ModelAttribute Iterable<ContentList> contentList) {
-        return contentListRepository.saveAll(contentList);
+    ContentList postContentList(@ModelAttribute ContentList contentList) {
+        return contentListRepository.save(contentList);
     }
 
     /**
@@ -151,8 +151,8 @@ class BuyController {
      * @return
      */
     @PostMapping("/dcontent")
-    Iterable<DigitalContentList> postDigitalContentList(@ModelAttribute Iterable<DigitalContentList> digitalContentList) {
-        return digitalContentListRepository.saveAll(digitalContentList);
+    DigitalContentList postDigitalContentList(@ModelAttribute DigitalContentList digitalContentList) {
+        return digitalContentListRepository.save(digitalContentList);
     }
 
     /**
@@ -200,8 +200,8 @@ class BuyController {
      * @return
      */
     @PostMapping("/shipping")
-    Iterable<ShippingInfo> postShippingInfoList(@ModelAttribute Iterable<ShippingInfo> shippingInfo) {
-        return shippingInfoRepository.saveAll(shippingInfo);
+    ShippingInfo postShippingInfoList(@ModelAttribute ShippingInfo shippingInfo) {
+        return shippingInfoRepository.save(shippingInfo);
     }
 
     /**
