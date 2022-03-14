@@ -1,5 +1,7 @@
 package net.ddns.scvstorage.scvInfoManager.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -56,7 +58,7 @@ public class MemoController {
      * @return
      */
     @PostMapping("/comcd")
-    CommonCdList postCommonCd(@ModelAttribute CommonCdList commonCdList) {
+    public CommonCdList postCommonCd(@ModelAttribute CommonCdList commonCdList) {
         return commonCdListRepository.save(commonCdList);
     }
 
@@ -67,8 +69,10 @@ public class MemoController {
      * @return
      */
     @PutMapping("/comcd/{commonCdId}")
-    CommonCdList putCommonCd(@RequestBody CommonCdList commonCdList, @PathVariable Integer commonCdId) {
+    public CommonCdList putCommonCd(@RequestBody CommonCdList commonCdList, @PathVariable Integer commonCdId) {
         
+
+
         return commonCdListRepository.findById(commonCdId)
             .map(selCommonCdList -> {
                 BeanUtils.copyProperties(commonCdList, selCommonCdList);
@@ -87,8 +91,16 @@ public class MemoController {
      * @param commonCdId 삭제할 공통코드관리ID
      */
     @DeleteMapping("/comcd/{commonCdId}")
-    void deleteCommonCd(@PathVariable Integer commonCdId) {
-        commonCdListRepository.deleteById(commonCdId);
+    public CommonCdList deleteCommonCd(@PathVariable Integer commonCdId) {
+        
+        Optional<CommonCdList> comCdDeleteOptional = commonCdListRepository.findById(commonCdId);
+        if (!comCdDeleteOptional.isPresent()) {
+            return null;
+        }
+        CommonCdList comCdToDelete = comCdDeleteOptional.get();
+        commonCdListRepository.delete(comCdToDelete);
+
+        return comCdToDelete;
     }
 
 
@@ -107,7 +119,7 @@ public class MemoController {
      * @return
      */
     @PostMapping("/location")
-    LocationCdList postLocationCdList(@ModelAttribute LocationCdList locationCdList) {
+    public LocationCdList postLocationCdList(@ModelAttribute LocationCdList locationCdList) {
         return locationCdListRepository.save(locationCdList);
     }
 
@@ -118,7 +130,7 @@ public class MemoController {
      * @return
      */
     @PutMapping("/location/{locationId}")
-    LocationCdList putLocationCdList(@RequestBody LocationCdList locationCdList, @PathVariable Integer locationId) {
+    public LocationCdList putLocationCdList(@RequestBody LocationCdList locationCdList, @PathVariable Integer locationId) {
         
         return locationCdListRepository.findById(locationId)
             .map(selLocationCdList -> {
@@ -138,8 +150,16 @@ public class MemoController {
      * @param locationId 삭제할 방위치관리ID
      */
     @DeleteMapping("/location/{locationId}")
-    void deleteLocationCdList(@PathVariable Integer locationId) {
-        locationCdListRepository.deleteById(locationId);
+    public LocationCdList deleteLocationCdList(@PathVariable Integer locationId) {
+        
+        Optional<LocationCdList> locCdDeleteOptional = locationCdListRepository.findById(locationId);
+        if (!locCdDeleteOptional.isPresent()) {
+            return null;
+        }
+        LocationCdList locCdToDelete = locCdDeleteOptional.get();
+        locationCdListRepository.delete(locCdToDelete);
+        
+        return locCdToDelete;
     }
 
 
@@ -158,7 +178,7 @@ public class MemoController {
      * @return
      */
     @PostMapping("/memotime")
-    MemoTime postMemoTime(@ModelAttribute MemoTime memoTime) {
+    public MemoTime postMemoTime(@ModelAttribute MemoTime memoTime) {
         return memoTimeRepository.save(memoTime);
     }
 
@@ -169,7 +189,7 @@ public class MemoController {
      * @return
      */
     @PutMapping("/memotime/{memotimeId}")
-    MemoTime putMemoTime(@RequestBody MemoTime memoTime, @PathVariable Integer memotimeId) {
+    public MemoTime putMemoTime(@RequestBody MemoTime memoTime, @PathVariable Integer memotimeId) {
         
         return memoTimeRepository.findById(memotimeId)
             .map(selMemotime -> {
@@ -189,8 +209,16 @@ public class MemoController {
      * @param locationId 삭제할 메모기록ID
      */
     @DeleteMapping("/memotime/{memotimeId}")
-    void deleteMemoTime(@PathVariable Integer memotimeId) {
-        memoTimeRepository.deleteById(memotimeId);
+    public MemoTime deleteMemoTime(@PathVariable Integer memotimeId) {
+        
+        Optional<MemoTime> memoDeleteOptional = memoTimeRepository.findById(memotimeId);
+        if (!memoDeleteOptional.isPresent()) {
+            return null;
+        }
+        MemoTime memoToDelete = memoDeleteOptional.get();
+        memoTimeRepository.delete(memoToDelete);
+        
+        return memoToDelete;
     }
 
 }

@@ -2,6 +2,7 @@ package net.ddns.scvstorage.scvInfoManager.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +102,7 @@ class BuyController {
      * @return
      */
     @PostMapping("/content")
-    ContentList postContentList(@ModelAttribute ContentList contentList) {
+    public ContentList postContentList(@ModelAttribute ContentList contentList) {
         return contentListRepository.save(contentList);
     }
 
@@ -112,7 +113,7 @@ class BuyController {
      * @return
      */
     @PutMapping("/contentList/{contentId}")
-    ContentList putContent(@RequestBody ContentList contentList, @PathVariable Integer contentId) {
+    public ContentList putContent(@RequestBody ContentList contentList, @PathVariable Integer contentId) {
         
         return contentListRepository.findById(contentId)
             .map(selContentList -> {
@@ -132,8 +133,16 @@ class BuyController {
      * @param contentId 삭제할 구입이력ID
      */
     @DeleteMapping("/content/{contentId}")
-    void deleteContent(@PathVariable Integer contentId) {
-        contentListRepository.deleteById(contentId);
+    public ContentList deleteContent(@PathVariable Integer contentId) {
+        
+        Optional<ContentList> contentDeleteOptional = contentListRepository.findById(contentId);
+        if (!contentDeleteOptional.isPresent()) {
+            return null;
+        }
+        ContentList contentToDelete = contentDeleteOptional.get();
+        contentListRepository.delete(contentToDelete);
+        
+        return contentToDelete;
     }
 
 
@@ -151,7 +160,7 @@ class BuyController {
      * @return
      */
     @PostMapping("/dcontent")
-    DigitalContentList postDigitalContentList(@ModelAttribute DigitalContentList digitalContentList) {
+    public DigitalContentList postDigitalContentList(@ModelAttribute DigitalContentList digitalContentList) {
         return digitalContentListRepository.save(digitalContentList);
     }
 
@@ -161,7 +170,7 @@ class BuyController {
      * @return
      */
     @PutMapping("/dcontent/{dcontentId}")
-    DigitalContentList putDigitalContent(@RequestBody DigitalContentList digitalContentList, @PathVariable Integer dcontentId) {
+    public DigitalContentList putDigitalContent(@RequestBody DigitalContentList digitalContentList, @PathVariable Integer dcontentId) {
         
         return digitalContentListRepository.findById(dcontentId)
             .map(selDigitalContentList -> {
@@ -181,8 +190,16 @@ class BuyController {
      * @param dcontentId 삭제할 구입이력ID
      */
     @DeleteMapping("/dcontent/{dcontentId}")
-    void deleteDigitalContent(@PathVariable Integer dcontentId) {
-        digitalContentListRepository.deleteById(dcontentId);
+    public DigitalContentList deleteDigitalContent(@PathVariable Integer dcontentId) {
+        
+        Optional<DigitalContentList> dContentDeleteOptional = digitalContentListRepository.findById(dcontentId);
+        if (!dContentDeleteOptional.isPresent()) {
+            return null;
+        }
+        DigitalContentList dContentToDelete = dContentDeleteOptional.get();
+        digitalContentListRepository.delete(dContentToDelete);
+        
+        return dContentToDelete;
     }
 
 
@@ -200,7 +217,7 @@ class BuyController {
      * @return
      */
     @PostMapping("/shipping")
-    ShippingInfo postShippingInfoList(@ModelAttribute ShippingInfo shippingInfo) {
+    public ShippingInfo postShippingInfoList(@ModelAttribute ShippingInfo shippingInfo) {
         return shippingInfoRepository.save(shippingInfo);
     }
 
@@ -210,7 +227,7 @@ class BuyController {
      * @return
      */
     @PutMapping("/shipping/{shippingId}")
-    ShippingInfo putShippingInfo(@RequestBody ShippingInfo shippingInfo, @PathVariable Integer shippingId) {
+    public ShippingInfo putShippingInfo(@RequestBody ShippingInfo shippingInfo, @PathVariable Integer shippingId) {
         
         return shippingInfoRepository.findById(shippingId)
             .map(selShippingInfoList -> {
@@ -230,8 +247,16 @@ class BuyController {
      * @param dcontentId 삭제할 배송정보ID
      */
     @DeleteMapping("/shipping/{shippingId}")
-    void deleteShippingInfo(@PathVariable Integer shippingId) {
-        shippingInfoRepository.deleteById(shippingId);
+    public ShippingInfo deleteShippingInfo(@PathVariable Integer shippingId) {
+        
+        Optional<ShippingInfo> shoppingDeleteOptional = shippingInfoRepository.findById(shippingId);
+        if (!shoppingDeleteOptional.isPresent()) {
+            return null;
+        }
+        ShippingInfo shoppingToDelete = shoppingDeleteOptional.get();
+        shippingInfoRepository.delete(shoppingToDelete);
+        
+        return shoppingToDelete;
     }
 
 }
