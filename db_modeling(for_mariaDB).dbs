@@ -152,7 +152,7 @@
 			<column name="bit_depth" type="int" jt="4" mandatory="y" >
 				<comment><![CDATA[비트]]></comment>
 			</column>
-			<column name="bitrate" type="int" jt="4" mandatory="y" >
+			<column name="bitrate" type="int" jt="4" >
 				<defo><![CDATA[0]]></defo>
 				<comment><![CDATA[비트레이트]]></comment>
 			</column>
