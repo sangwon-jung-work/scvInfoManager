@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="memo_area" id="Project-78d" database="MariaDb" >
+	<comment><![CDATA[database design for managing purchase list, frequency observation]]></comment>
+	<schema name="memo_area" >
+		<table name="common_cd_list" >
+			<comment><![CDATA[공통코드관리]]></comment>
+			<column name="common_cd_list_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[공통코드관리ID]]></comment>
+			</column>
+			<column name="cd_kind" type="varchar" length="50" jt="12" mandatory="y" >
+				<comment><![CDATA[공통코드구분]]></comment>
+			</column>
+			<column name="cd" type="varchar" length="5" jt="12" mandatory="y" >
+				<comment><![CDATA[공통코드]]></comment>
+			</column>
+			<column name="cd_nm" type="varchar" length="100" jt="12" mandatory="y" >
+				<comment><![CDATA[공통코드명]]></comment>
+			</column>
+			<column name="note" type="varchar" length="150" jt="12" >
+				<comment><![CDATA[비고]]></comment>
+			</column>
+			<column name="create_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[입력일시]]></comment>
+			</column>
+			<column name="modify_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[수정일시]]></comment>
+			</column>
+			<index name="pk_common_cd_list" unique="PRIMARY_KEY" >
+				<column name="common_cd_list_id" />
+			</index>
+			<index name="unq_common_cd_list" unique="UNIQUE_KEY" >
+				<column name="cd_kind" />
+				<column name="cd" />
+			</index>
+			<options><![CDATA[engine=InnoDB  CHARACTER SET utf8 
+]]></options>
+		</table>
+		<table name="content_list" >
+			<comment><![CDATA[Purchase list for physically existing products (eg records, DVDs, Blu-rays, imported books, etc.)]]></comment>
+			<column name="content_list_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[구입정보ID]]></comment>
+			</column>
+			<column name="content_type_cd" type="varchar" length="10" jt="12" mandatory="y" >
+				<comment><![CDATA[구입구분코드]]></comment>
+			</column>
+			<column name="title" type="varchar" length="150" jt="12" mandatory="y" >
+				<comment><![CDATA[제목/타이틀]]></comment>
+			</column>
+			<column name="artist" type="varchar" length="200" jt="12" >
+				<comment><![CDATA[아티스트]]></comment>
+			</column>
+			<column name="content_note" type="varchar" length="100" jt="12" >
+				<comment><![CDATA[비고]]></comment>
+			</column>
+			<column name="version" type="varchar" length="100" jt="12" >
+				<comment><![CDATA[상품버전]]></comment>
+			</column>
+			<column name="genre" type="varchar" length="20" jt="12" >
+				<comment><![CDATA[분류(장르)]]></comment>
+			</column>
+			<column name="xrate_yn" type="char" length="1" jt="1" mandatory="y" >
+				<defo><![CDATA['N']]></defo>
+				<comment><![CDATA[성인구분]]></comment>
+			</column>
+			<column name="write_review_yn" type="char" length="1" jt="1" mandatory="y" >
+				<defo><![CDATA['N']]></defo>
+				<comment><![CDATA[감상정리여부]]></comment>
+			</column>
+			<column name="re_view_yn" type="char" length="1" jt="1" mandatory="y" >
+				<defo><![CDATA['N']]></defo>
+				<comment><![CDATA[재감상여부]]></comment>
+			</column>
+			<column name="receipt_date" type="date" jt="91" >
+				<comment><![CDATA[수령일자]]></comment>
+			</column>
+			<column name="content_blog_url" type="varchar" length="50" jt="12" >
+				<comment><![CDATA[관련글URL]]></comment>
+			</column>
+			<column name="sales_country" type="varchar" length="3" jt="12" mandatory="y" >
+				<comment><![CDATA[상품발매국가코드]]></comment>
+			</column>
+			<column name="condition_type" type="varchar" length="10" jt="12" mandatory="y" >
+				<comment><![CDATA[상품종류(중고여부)]]></comment>
+			</column>
+			<column name="currency" type="varchar" length="5" jt="12" >
+				<comment><![CDATA[상품가격통화]]></comment>
+			</column>
+			<column name="amount" type="float" length="10" decimal="2" jt="7" >
+				<defo><![CDATA[0.00]]></defo>
+				<comment><![CDATA[상품금액]]></comment>
+			</column>
+			<column name="order_num" type="varchar" length="50" jt="12" >
+				<comment><![CDATA[상품주문정보]]></comment>
+			</column>
+			<column name="buying_location" type="varchar" length="50" jt="12" mandatory="y" >
+				<comment><![CDATA[상품구입처]]></comment>
+			</column>
+			<column name="payment_method" type="varchar" length="10" jt="12" mandatory="y" >
+				<comment><![CDATA[결제수단]]></comment>
+			</column>
+			<column name="release_date" type="date" jt="91" mandatory="y" >
+				<comment><![CDATA[발매일자]]></comment>
+			</column>
+			<column name="shipping_info_id" type="int" jt="4" >
+				<comment><![CDATA[배송정보ID]]></comment>
+			</column>
+			<column name="memo" type="varchar" length="50" jt="12" >
+				<comment><![CDATA[메모]]></comment>
+			</column>
+			<column name="create_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[입력일시]]></comment>
+			</column>
+			<column name="modify_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[수정일시]]></comment>
+			</column>
+			<index name="pk_content_list" unique="PRIMARY_KEY" >
+				<column name="content_list_id" />
+			</index>
+			<index name="idx_content_list" unique="NORMAL" >
+				<column name="content_type_cd" />
+				<column name="title" />
+				<column name="genre" />
+				<column name="release_date" />
+			</index>
+			<options><![CDATA[engine=InnoDB  CHARACTER SET utf8 
+]]></options>
+		</table>
+		<table name="digital_content_list" >
+			<comment><![CDATA[디지털음원 구입정보]]></comment>
+			<column name="digital_content_list_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[디지털음원 구입정보ID]]></comment>
+			</column>
+			<column name="title" type="varchar" length="200" jt="12" mandatory="y" >
+				<comment><![CDATA[제목]]></comment>
+			</column>
+			<column name="artist" type="varchar" length="300" jt="12" mandatory="y" >
+				<comment><![CDATA[아티스트]]></comment>
+			</column>
+			<column name="album" type="varchar" length="200" jt="12" mandatory="y" >
+				<comment><![CDATA[앨범]]></comment>
+			</column>
+			<column name="format" type="varchar" length="5" jt="12" mandatory="y" >
+				<comment><![CDATA[파일포멧]]></comment>
+			</column>
+			<column name="sample_rate" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[샘플링레이트]]></comment>
+			</column>
+			<column name="bit_depth" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[비트]]></comment>
+			</column>
+			<column name="bitrate" type="int" jt="4" mandatory="y" >
+				<defo><![CDATA[0]]></defo>
+				<comment><![CDATA[비트레이트]]></comment>
+			</column>
+			<column name="size" type="float" length="5" decimal="2" jt="7" mandatory="y" >
+				<defo><![CDATA[0.00]]></defo>
+				<comment><![CDATA[용량(MB)]]></comment>
+			</column>
+			<column name="buying_date" type="datetime" jt="93" mandatory="y" >
+				<comment><![CDATA[구입일시]]></comment>
+			</column>
+			<column name="currency" type="varchar" length="5" jt="12" >
+				<comment><![CDATA[통화]]></comment>
+			</column>
+			<column name="amount" type="float" length="10" decimal="2" jt="7" >
+				<defo><![CDATA[0.00]]></defo>
+				<comment><![CDATA[가격]]></comment>
+			</column>
+			<column name="buying_location" type="varchar" length="10" jt="12" mandatory="y" >
+				<comment><![CDATA[음원구입처]]></comment>
+			</column>
+			<column name="release_label" type="varchar" length="60" jt="12" mandatory="y" >
+				<comment><![CDATA[레이블]]></comment>
+			</column>
+			<column name="release_date" type="date" jt="91" mandatory="y" >
+				<comment><![CDATA[발매일자]]></comment>
+			</column>
+			<column name="memo" type="varchar" length="50" jt="12" >
+				<comment><![CDATA[메모]]></comment>
+			</column>
+			<column name="create_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[입력일시]]></comment>
+			</column>
+			<column name="modify_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[수정일시]]></comment>
+			</column>
+			<index name="pk_digital_content_list" unique="PRIMARY_KEY" >
+				<column name="digital_content_list_id" />
+			</index>
+			<index name="idx_digital_content_list" unique="NORMAL" >
+				<column name="title" />
+				<column name="artist" />
+				<column name="album" />
+				<column name="format" />
+				<column name="release_label" />
+				<column name="release_date" />
+			</index>
+			<options><![CDATA[engine=InnoDB  CHARACTER SET utf8 
+]]></options>
+		</table>
+		<table name="location_cd_list" >
+			<comment><![CDATA[방위치관리]]></comment>
+			<column name="location_cd_list_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[방위치관리ID]]></comment>
+			</column>
+			<column name="location_cd" type="varchar" length="3" jt="12" mandatory="y" >
+				<comment><![CDATA[방위치코드]]></comment>
+			</column>
+			<column name="location_desc" type="varchar" length="300" jt="12" mandatory="y" >
+				<comment><![CDATA[방위치설명(주소)]]></comment>
+			</column>
+			<column name="note" type="varchar" length="100" jt="12" >
+				<comment><![CDATA[비고]]></comment>
+			</column>
+			<column name="create_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[입력일시]]></comment>
+			</column>
+			<column name="modify_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[수정일시]]></comment>
+			</column>
+			<index name="pk_location_cd_list" unique="PRIMARY_KEY" >
+				<column name="location_cd_list_id" />
+			</index>
+			<index name="unq_location_cd_list" unique="UNIQUE_KEY" >
+				<column name="location_cd" />
+			</index>
+			<options><![CDATA[engine=InnoDB  CHARACTER SET utf8 
+]]></options>
+		</table>
+		<table name="memo_time" >
+			<comment><![CDATA[메모기록]]></comment>
+			<column name="memo_time_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[메모기록ID]]></comment>
+			</column>
+			<column name="room_location_cd" type="varchar" length="3" jt="12" mandatory="y" >
+				<comment><![CDATA[방위치코드]]></comment>
+			</column>
+			<column name="memo_type_cd" type="varchar" length="3" jt="12" mandatory="y" >
+				<comment><![CDATA[메모대상(종류)코드]]></comment>
+			</column>
+			<column name="memo_date" type="date" jt="91" mandatory="y" >
+				<comment><![CDATA[메모일자]]></comment>
+			</column>
+			<column name="note" type="varchar" length="300" jt="12" >
+				<comment><![CDATA[비고]]></comment>
+			</column>
+			<column name="create_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[입력일시]]></comment>
+			</column>
+			<column name="modify_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[수정일시]]></comment>
+			</column>
+			<index name="pk_memo_time" unique="PRIMARY_KEY" >
+				<column name="memo_time_id" />
+			</index>
+			<index name="unq_memo_time" unique="UNIQUE_KEY" >
+				<column name="room_location_cd" />
+				<column name="memo_type_cd" />
+				<column name="memo_date" />
+			</index>
+			<options><![CDATA[engine=InnoDB  CHARACTER SET utf8 
+]]></options>
+		</table>
+		<table name="shipping_info" >
+			<comment><![CDATA[배송정보]]></comment>
+			<column name="shipping_info_id" type="int" jt="4" mandatory="y" >
+				<comment><![CDATA[배송정보ID]]></comment>
+			</column>
+			<column name="currency" type="varchar" length="10" jt="12" >
+				<comment><![CDATA[배송가격통화]]></comment>
+			</column>
+			<column name="amount" type="float" length="10" decimal="2" jt="7" >
+				<defo><![CDATA[0.00]]></defo>
+				<comment><![CDATA[배송비]]></comment>
+			</column>
+			<column name="order_num" type="varchar" length="50" jt="12" >
+				<comment><![CDATA[배송주문번호]]></comment>
+			</column>
+			<column name="buying_location" type="varchar" length="50" jt="12" mandatory="y" >
+				<comment><![CDATA[배송처]]></comment>
+			</column>
+			<column name="payment_method" type="varchar" length="10" jt="12" mandatory="y" >
+				<comment><![CDATA[결제수단]]></comment>
+			</column>
+			<column name="memo" type="varchar" length="50" jt="12" >
+				<comment><![CDATA[메모]]></comment>
+			</column>
+			<column name="create_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[입력일시]]></comment>
+			</column>
+			<column name="modify_date" type="datetime" jt="93" mandatory="y" >
+				<defo><![CDATA[CURRENT_TIMESTAMP()]]></defo>
+				<comment><![CDATA[수정일시]]></comment>
+			</column>
+			<index name="pk_shipping_info" unique="PRIMARY_KEY" >
+				<column name="shipping_info_id" />
+			</index>
+			<index name="idx_shipping_info" unique="NORMAL" >
+				<column name="buying_location" />
+			</index>
+			<options><![CDATA[engine=InnoDB  CHARACTER SET utf8 
+]]></options>
+		</table>
+	</schema>
+	<connector name="MyDb" database="MySql" host="localhost" port="3306" user="root" />
+	<layout name="Default Layout" id="Layout-1f19" show_relation="columns" >
+		<entity schema="memo_area" name="common_cd_list" color="C1D8EE" x="48" y="560" />
+		<entity schema="memo_area" name="content_list" color="C1D8EE" x="48" y="112" />
+		<entity schema="memo_area" name="digital_content_list" color="C1D8EE" x="448" y="112" />
+		<entity schema="memo_area" name="location_cd_list" color="C1D8EE" x="224" y="560" />
+		<entity schema="memo_area" name="memo_time" color="C1D8EE" x="400" y="560" />
+		<entity schema="memo_area" name="shipping_info" color="C1D8EE" x="208" y="112" />
+		<callout x="96" y="48" pointer="Round" >
+			<comment><![CDATA[DbSchema is disconnected from the database.
+New designed tables will be saved to project file and later can be create in any database.
+Right-click the layout to create new tables. Drop this callout from its context menu.]]></comment>
+		</callout>
+	</layout>
+</project>

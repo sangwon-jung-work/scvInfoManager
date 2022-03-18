@@ -18,3 +18,4 @@ git clone https://github.com/sangwon-jung-work/scvInfoManager.git
 
 [Visual Studio Code](https://code.visualstudio.com/Download) with maven for java, Spring Boot Dashboard
 
+[DbSchema](https://dbschema.com/download.html) for mariaDB Modeling(.dbs file)
