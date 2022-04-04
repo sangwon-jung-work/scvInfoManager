@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList;
+import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList.contentType;
 import net.ddns.scvstorage.scvInfoManager.repository.common.ComboData;
 
 public interface ContentListRepository extends CrudRepository<ContentList, Integer> {
 
     Iterable<ContentList> findByContentTypeCd(String contentTypeCd);
 
-    Iterable<ContentList> findByContentTypeCdAndContentListId(String contentTypeCd, Integer contentListId);
+    Iterable<ContentList> findByContentTypeCdAndContentListId(contentType contentTypeCd, Integer contentListId);
 
     // 사전 기록되어 있던 장르 조회(Distinct)
     @Query(value = "SELECT c.genre AS code, c.genre AS codename " 
