@@ -20,9 +20,10 @@ public class SelectControllerTest {
     MockMvc mockMvc;
 
     @Test
-    public void getIndexText() throws Exception {
-        mockMvc.perform( MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().string("hello index page!"));
+    public void getIndexLoad() throws Exception {
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
