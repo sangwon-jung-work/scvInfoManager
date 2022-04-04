@@ -1,7 +1,7 @@
 package net.ddns.scvstorage.scvInfoManager.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.ddns.scvstorage.scvInfoManager.entity.buy.*;
+import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList.contentType;
 import net.ddns.scvstorage.scvInfoManager.repository.buy.*;
 
 /** 구입목록
@@ -53,12 +54,16 @@ class BuyController {
     @GetMapping("/content/{contentTypeCd}")
     public Iterable<ContentList> getContentList(@PathVariable String contentTypeCd) {
 
-        if( contentTypeCd.toUpperCase().equals("ALL") ) {
-            return contentListRepository.findAll(); // 타입코드가 입력되지 않았을 경우 전체조회
+        contentType typeChk = ContentList.convertContentTypeCd(contentTypeCd);
+
+        if( typeChk == contentType.all ) {
+            return contentListRepository.findAll(); // contentType 이 전체(all) 일 경우 전체 조회
+        } else if( typeChk != null ) {
+            return contentListRepository.findByContentTypeCd(typeChk.name());
         } else {
-            return contentListRepository.findByContentTypeCd(contentTypeCd.toUpperCase());
+            // 비정상 케이스일 경우 조회하지 않음
+            return new ArrayList<ContentList>();
         }
-        
     }
 
     /**
@@ -73,12 +78,16 @@ class BuyController {
         Integer ids[] = {contentId};
         Iterable<Integer> idList = Arrays.asList(ids);
 
-        if( contentTypeCd.toUpperCase().equals("ALL") ) {
+        contentType typeChk = ContentList.convertContentTypeCd(contentTypeCd);
+
+        if( typeChk == contentType.all ) {
             return contentListRepository.findAllById(idList);
+        } else if( typeChk != null ) {
+            return contentListRepository.findByContentTypeCdAndContentListId( typeChk, contentId);
         } else {
-            return contentListRepository.findByContentTypeCdAndContentListId(contentTypeCd, contentId);
+            // 비정상 케이스일 경우 조회하지 않음
+            return new ArrayList<ContentList>();
         }
-        
     }
 
     /*
