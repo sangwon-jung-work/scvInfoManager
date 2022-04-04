@@ -810,4 +810,13 @@ public class NumberUtil {
 		}
 		return false;
 	}
+
+	/** 홀수 짝수 구분(테스트용)
+	 * 
+	 * @param number
+	 * @return
+	 */
+	public static boolean isNumberEven(Integer number) {
+		return number % 2 == 0;
+	}
 }
