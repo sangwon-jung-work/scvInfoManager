@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,14 +25,34 @@ import org.springframework.format.annotation.DateTimeFormat;
 @DynamicUpdate
 public class ContentList {
 
+    public enum contentType {
+        Bluray("Bluray"),
+        DVD("DVD"),
+        Album("Album"),
+        Book("Book"),
+        Figure("Figure"),
+        all("all");
+
+        private String type;
+
+        private contentType(String type) {
+            this.type = type;
+        }
+
+        public String getCode() {
+            return type;
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     private Integer contentListId; // 구입정보ID
 
+    @Enumerated(EnumType.STRING)
     @Column
     @NotNull
-    private String contentTypeCd; // 구입구분코드
+    private contentType contentTypeCd; // 구입구분코드
 
     @Column
     @NotNull
@@ -92,12 +114,42 @@ public class ContentList {
         this.contentListId = contentListId;
     }
 
-    public String getContentTypeCd() {
+    public contentType getContentTypeCd() {
         return contentTypeCd;
     }
 
     public void setContentTypeCd(String contentTypeCd) {
-        this.contentTypeCd = contentTypeCd;
+        try {
+            this.contentTypeCd = contentType.valueOf(contentTypeCd);
+        } catch( IllegalArgumentException | NullPointerException e ) {
+            this.contentTypeCd = null;
+        }
+    }
+
+    /** contentTypeCd 를 String 에서 enum 으로 변환
+     * 
+     * @param contentTypeCd 변환하고자 하는 contentTypeCd
+     * @return 변환된 contentType enum, 오류시 null
+     */
+    public static contentType convertContentTypeCd(String contentTypeCd) {
+        
+        // 입력여부 체크
+        if( contentTypeCd.length() == 0 )
+            return null; // 값이 없으면 null
+        else if( contentTypeCd.toLowerCase().equals("all") )
+            return contentType.valueOf(contentTypeCd); // all 일 경우 첫 문자를 대문자로 하지 않고 반환
+        else
+            contentTypeCd = contentTypeCd.toLowerCase(); // 그 외 값은 소문자 처리 후 아래 과정
+        
+        contentType rtnValue;
+        try {
+            // contentType 이 전체(all) 가 아닐 경우, enum 포멧에 맞게 조정
+            contentTypeCd = contentTypeCd.substring(0, 1).concat( contentTypeCd.substring(1) );
+            rtnValue = contentType.valueOf(contentTypeCd);
+        } catch( IllegalArgumentException | NullPointerException e ) {
+            rtnValue = null;
+        }
+        return rtnValue;
     }
 
     public String getTitle() {
