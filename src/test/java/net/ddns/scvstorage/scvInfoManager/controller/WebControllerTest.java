@@ -24,6 +24,9 @@ public class WebControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    /**
+     *  root 조회(index) 테스트
+     */
     @Test
     @Order(1)
     public void getPageLoad_index_getStatusCodeOK() throws Exception {
@@ -33,6 +36,9 @@ public class WebControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     *  구입이력 입력화면 조회 테스트
+     */
     @Test
     @Order(2)
     public void getPageLoad_insertContent_getStatusCodeOK() throws Exception {
@@ -42,6 +48,9 @@ public class WebControllerTest {
                 .andExpect(status().isOk());
     }
 
+    /**
+     *  구입이력(디지털) 입력화면 조회 테스트
+     */
     @Test
     @Order(3)
     public void getPageLoad_insertDContent_getStatusCodeOK() throws Exception {
@@ -51,6 +60,9 @@ public class WebControllerTest {
                 .andExpect(status().isOk());
     }
     
+    /**
+     *  배송정보 입력화면 조회 테스트
+     */
     @Test
     @Order(4)
     public void getPageLoad_insertShipping_getStatusCodeOK() throws Exception {
@@ -60,6 +72,9 @@ public class WebControllerTest {
                 .andExpect(status().isOk());
     }
     
+    /**
+     *  공통코드 입력화면 조회 테스트
+     */
     @Test
     @Order(5)
     public void getPageLoad_insertCommonCode_getStatusCodeOK() throws Exception {
@@ -69,6 +84,9 @@ public class WebControllerTest {
                 .andExpect(status().isOk());
     }
     
+    /**
+     *  방위치 입력화면 조회 테스트
+     */
     @Test
     @Order(6)
     public void getPageLoad_insertLocationCode_getStatusCodeOK() throws Exception {
@@ -78,6 +96,9 @@ public class WebControllerTest {
                 .andExpect(status().isOk());
     }
     
+    /**
+     *  메모기록 입력화면 조회 테스트
+     */
     @Test
     @Order(7)
     public void getPageLoad_insertMemotime_getStatusCodeOK() throws Exception {

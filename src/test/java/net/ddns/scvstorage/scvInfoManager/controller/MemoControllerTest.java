@@ -28,6 +28,9 @@ public class MemoControllerTest {
 
 	HttpHeaders headers = new HttpHeaders();
     
+    /**
+     * 공통코드관리 조회 테스트
+     */
     @Test
     @Order(1)
     void getCommonCdList_findAll_getStatusCodeOK() {
@@ -40,6 +43,9 @@ public class MemoControllerTest {
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
     }
 
+    /**
+     * 방위치관리 조회 테스트
+     */
     @Test
     @Order(2)
     void getLocationCdList_findAll_getStatusCodeOK() {
@@ -52,6 +58,9 @@ public class MemoControllerTest {
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
     }
 
+    /**
+     * 메모기록 조회 테스트
+     */
     @Test
     @Order(3)
     void getMemoTime_findAll_getStatusCodeOK() {
