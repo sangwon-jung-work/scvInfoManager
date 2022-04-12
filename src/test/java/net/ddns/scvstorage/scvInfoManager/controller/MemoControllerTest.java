@@ -2,6 +2,7 @@ package net.ddns.scvstorage.scvInfoManager.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -33,6 +34,7 @@ public class MemoControllerTest {
      */
     @Test
     @Order(1)
+    @DisplayName("CommonCdList findAll StatusCode is OK")
     void getCommonCdList_findAll_getStatusCodeOK() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         
@@ -48,6 +50,7 @@ public class MemoControllerTest {
      */
     @Test
     @Order(2)
+    @DisplayName("LocationCdList findAll StatusCode is OK")
     void getLocationCdList_findAll_getStatusCodeOK() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         
@@ -63,6 +66,7 @@ public class MemoControllerTest {
      */
     @Test
     @Order(3)
+    @DisplayName("MemoTime findAll StatusCode is OK")
     void getMemoTime_findAll_getStatusCodeOK() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         

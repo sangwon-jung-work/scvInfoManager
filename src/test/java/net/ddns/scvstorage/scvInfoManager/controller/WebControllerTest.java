@@ -1,7 +1,8 @@
 package net.ddns.scvstorage.scvInfoManager.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -29,6 +30,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(1)
+    @DisplayName("Call PageLoad index StatusCode is OK")
     public void getPageLoad_index_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/")
@@ -41,6 +43,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(2)
+    @DisplayName("Call ContentList Insert Page StatusCode is OK")
     public void getPageLoad_insertContent_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/web/buy/contentinsert")
@@ -53,6 +56,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(3)
+    @DisplayName("Call DigitalContentList Insert Page StatusCode is OK")
     public void getPageLoad_insertDContent_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/web/buy/dcontentinsert")
@@ -65,6 +69,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(4)
+    @DisplayName("Call ShippingInfo Insert Page StatusCode is OK")
     public void getPageLoad_insertShipping_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/web/buy/shippinginsert")
@@ -77,6 +82,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(5)
+    @DisplayName("Call CommonCd Insert Page StatusCode is OK")
     public void getPageLoad_insertCommonCode_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/web/memo/comcdinsert")
@@ -89,6 +95,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(6)
+    @DisplayName("Call LocationCd Insert Page StatusCode is OK")
     public void getPageLoad_insertLocationCode_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/web/memo/locationinsert")
@@ -101,6 +108,7 @@ public class WebControllerTest {
      */
     @Test
     @Order(7)
+    @DisplayName("Call MemoTime Insert Page StatusCode is OK")
     public void getPageLoad_insertMemotime_getStatusCodeOK() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/web/memo/memotimeinsert")
