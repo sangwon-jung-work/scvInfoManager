@@ -1,13 +1,16 @@
 package net.ddns.scvstorage.scvInfoManager.controller;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -31,11 +34,14 @@ public class BuyControllerTest {
 
 	HttpHeaders headers = new HttpHeaders();
 
+    Logger logger = LoggerFactory.getLogger(BuyControllerTest.class);
+    
     /**
      * 구입이력 조회(전체) 테스트
      */
     @Test
     @Order(1)
+    @DisplayName("ContentList findAll StatusCode is OK")
     public void getContentList_findAll_getStatusCodeOK() throws IOException, InterruptedException {
         
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
@@ -43,7 +49,10 @@ public class BuyControllerTest {
         ResponseEntity<String> response = restTemplate.exchange(
                 createURLWithPort("/buy/content/all"),
                 HttpMethod.GET, entity, String.class);
-                
+        
+        String resBody = response.getBody();
+        logger.info("getContentList_findAll_getStatusCodeOK() body length {}", resBody.length());
+        assertNotNull(resBody);
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
     }
 
@@ -52,6 +61,7 @@ public class BuyControllerTest {
      */
     @Test
     @Order(2)
+    @DisplayName("ContentList find by contentType StatusCode is OK")
     public void getContentList_find_Bluray_getStatusCodeOK() throws IOException, InterruptedException {
         
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
@@ -60,6 +70,9 @@ public class BuyControllerTest {
                 createURLWithPort("/buy/content/".concat(ContentList.contentType.Bluray.name())),
                 HttpMethod.GET, entity, String.class);
                 
+        String resBody = response.getBody();
+        logger.info("getContentList_find_Bluray_getStatusCodeOK() body length {}", resBody.length());
+        assertNotNull(resBody);
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());
     }
 
@@ -69,6 +82,7 @@ public class BuyControllerTest {
      */
     @Test
     @Order(3)
+    @DisplayName("DigitalContentList findAll StatusCode is OK")
     public void getDigitalContentList_findAll_getStatusCodeOK() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         
@@ -76,6 +90,9 @@ public class BuyControllerTest {
                 createURLWithPort("/buy/dcontent"),
                 HttpMethod.GET, entity, String.class);
                 
+        String resBody = response.getBody();
+        logger.info("getDigitalContentList_findAll_getStatusCodeOK() body length {}", resBody.length());
+        assertNotNull(resBody);
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());   
     }
 
@@ -84,6 +101,7 @@ public class BuyControllerTest {
      */
     @Test
     @Order(4)
+    @DisplayName("ShippingInfoList findAll StatusCode is OK")
     public void getShippingInfoList_findAll_getStatusCodeOK() {
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
         
@@ -91,6 +109,9 @@ public class BuyControllerTest {
                 createURLWithPort("/buy/shipping"),
                 HttpMethod.GET, entity, String.class);
                 
+        String resBody = response.getBody();
+        logger.info("getShippingInfoList_findAll_getStatusCodeOK() body length {}", resBody.length());
+        assertNotNull(resBody);
         assertEquals(response.getStatusCode().value(), HttpStatus.OK.value());        
     }
 
