@@ -21,8 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class ShippingInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer shippingInfoId; // 배송정보ID
 
     @Column

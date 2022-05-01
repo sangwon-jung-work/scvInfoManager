@@ -45,8 +45,7 @@ public class ContentList {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer contentListId; // 구입정보ID
 
     @Enumerated(EnumType.STRING)

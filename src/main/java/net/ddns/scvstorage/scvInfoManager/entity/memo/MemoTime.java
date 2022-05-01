@@ -24,8 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class MemoTime {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer memoTimeId; // 메모기록ID
 
     @Column(unique = true)

@@ -21,8 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class LocationCdList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer locationCdListId; // 방위치관리ID
 
     @Column(unique = true)

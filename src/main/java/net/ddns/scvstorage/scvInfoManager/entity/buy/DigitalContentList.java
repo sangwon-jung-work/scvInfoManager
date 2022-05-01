@@ -24,8 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class DigitalContentList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer digitalContentListId; // 디지털음원구입정보ID
 
     @Column

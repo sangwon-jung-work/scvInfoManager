@@ -21,8 +21,7 @@ import org.hibernate.annotations.DynamicUpdate;
 public class CommonCdList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commonCdListId; // 공통코드관리ID
 
     @Column(unique = true)
