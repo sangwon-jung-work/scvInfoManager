@@ -5,7 +5,7 @@ target/
 !**/src/test/**
 
 ## excetp mysql info properties ##
-dbconnection.properties
+#dbconnection.properties
 
 ### STS ###
 .apt_generated
