@@ -28,8 +28,8 @@ import net.ddns.scvstorage.scvInfoManager.repository.buy.*;
  * 2020.04.17
  */
 @RestController
-@RequestMapping("/buy")
-class BuyController {
+@RequestMapping(value = "/buy", produces = "application/json;charset=utf8")
+public class BuyController {
 
     @Autowired
     private ContentListRepository contentListRepository;
@@ -49,17 +49,17 @@ class BuyController {
     /**
      * 구입이력 조회
      * @param contentTypeCd 타입코드
-     * @return
+     * @return 조회된 구입이력 데이터
      */
     @GetMapping("/content/{contentTypeCd}")
-    public Iterable<ContentList> getContentList(@PathVariable String contentTypeCd) {
+    public Iterable<ContentList> getContentListByTypeCd(@PathVariable String contentTypeCd) {
 
         contentType typeChk = ContentList.convertContentTypeCd(contentTypeCd);
 
         if( typeChk == contentType.all ) {
             return contentListRepository.findAll(); // contentType 이 전체(all) 일 경우 전체 조회
         } else if( typeChk != null ) {
-            return contentListRepository.findByContentTypeCd(typeChk.name());
+            return contentListRepository.findByContentTypeCd(typeChk);
         } else {
             // 비정상 케이스일 경우 조회하지 않음
             return new ArrayList<ContentList>();
@@ -69,13 +69,13 @@ class BuyController {
     /**
      * 구입이력 조회(ID)
      * @param contentTypeCd 타입코드
-     * @param contentId 구입이력ID
-     * @return
+     * @param key 구입이력ID
+     * @return 조회된 구입이력 데이터
      */
-    @GetMapping("/content/{contentTypeCd}/{contentId}")
-    public Iterable<ContentList> getContentList(@PathVariable String contentTypeCd, @PathVariable Integer contentId) {
+    @GetMapping("/content/{contentTypeCd}/{key}")
+    public Iterable<ContentList> getContentListById(@PathVariable String contentTypeCd, @PathVariable Integer key) {
 
-        Integer ids[] = {contentId};
+        Integer ids[] = {key};
         Iterable<Integer> idList = Arrays.asList(ids);
 
         contentType typeChk = ContentList.convertContentTypeCd(contentTypeCd);
@@ -83,7 +83,7 @@ class BuyController {
         if( typeChk == contentType.all ) {
             return contentListRepository.findAllById(idList);
         } else if( typeChk != null ) {
-            return contentListRepository.findByContentTypeCdAndContentListId( typeChk, contentId);
+            return contentListRepository.findByContentTypeCdAndContentListId( typeChk, key);
         } else {
             // 비정상 케이스일 경우 조회하지 않음
             return new ArrayList<ContentList>();
@@ -107,8 +107,8 @@ class BuyController {
 
     /**
      * 구입이력 등록
-     * @param contentList 구입이력 데이터
-     * @return
+     * @param contentList 입력할 구입이력 데이터
+     * @return 입력된 구입이력 데이터
      */
     @PostMapping("/content")
     public ContentList postContentList(@ModelAttribute ContentList contentList) {
@@ -118,16 +118,16 @@ class BuyController {
     /**
      * 구입이력 수정(ID 1건)
      * @param contentList 수정할 구입이력 데이터
-     * @param contentId 구입이력ID
-     * @return
+     * @param key 구입이력ID
+     * @return 수정된 구입이력 데이터
      */
-    @PutMapping("/contentList/{contentId}")
-    public ContentList putContent(@RequestBody ContentList contentList, @PathVariable Integer contentId) {
+    @PutMapping("/content/{key}")
+    public ContentList putContent(@RequestBody ContentList contentList, @PathVariable Integer key) {
         
-        return contentListRepository.findById(contentId)
+        return contentListRepository.findById(key)
             .map(selContentList -> {
                 BeanUtils.copyProperties(contentList, selContentList);
-                selContentList.setContentListId(contentId);
+                selContentList.setContentListId(key);
                 return contentListRepository.save(selContentList);
             
             }).orElseGet( () -> {
@@ -139,12 +139,13 @@ class BuyController {
     
     /**
      * 구입이력 삭제(ID 1건)
-     * @param contentId 삭제할 구입이력ID
+     * @param key 삭제할 구입이력ID
+     * @return 삭제된 구입이력 데이터
      */
-    @DeleteMapping("/content/{contentId}")
-    public ContentList deleteContent(@PathVariable Integer contentId) {
+    @DeleteMapping("/content/{key}")
+    public ContentList deleteContent(@PathVariable Integer key) {
         
-        Optional<ContentList> contentDeleteOptional = contentListRepository.findById(contentId);
+        Optional<ContentList> contentDeleteOptional = contentListRepository.findById(key);
         if (!contentDeleteOptional.isPresent()) {
             return null;
         }
@@ -154,19 +155,35 @@ class BuyController {
         return contentToDelete;
     }
 
-
     /**
      * 구입이력(디지털) 조회
-     * @return
+     * @return 조회된 구입이력(디지털) 데이터
      */
     @GetMapping("/dcontent")
     public Iterable<DigitalContentList> getDigitalContentList() {
         return digitalContentListRepository.findAll();
     }
 
+    /**
+     * 구입이력(디지털) 조회(ID)
+     * @param key 구입이력(디지털) ID
+     * @return 조회된 구입이력(디지털) 데이터
+     */
+    @GetMapping("/dcontent/{key}")
+    public Iterable<DigitalContentList> getDigitalContentListById(@PathVariable Integer key) {
+
+        return Arrays.asList( digitalContentListRepository.findById(key)
+            .map(selectedData -> {
+                return selectedData;
+            
+            }).orElseGet( () -> {
+                return new DigitalContentList();
+            }) );
+    }
+
     /** 구입이력(디지털) 등록
-     * @param digitalContentList 구입이력(디지털) 데이터
-     * @return
+     * @param digitalContentList 입력할 구입이력(디지털) 데이터
+     * @return 입력된 구입이력(디지털) 데이터
      */
     @PostMapping("/dcontent")
     public DigitalContentList postDigitalContentList(@ModelAttribute DigitalContentList digitalContentList) {
@@ -175,16 +192,17 @@ class BuyController {
 
     /**
      * 구입이력(디지털) 수정(ID 1건)
-     * @param dcontentId 구입이력ID
-     * @return
+     * @param digitalContentList 수정할 구입이력(디지털) 데이터
+     * @param key 수정할 구입이력(디지털) ID
+     * @return 수정된 구입이력(디지털) 데이터
      */
-    @PutMapping("/dcontent/{dcontentId}")
-    public DigitalContentList putDigitalContent(@RequestBody DigitalContentList digitalContentList, @PathVariable Integer dcontentId) {
+    @PutMapping("/dcontent/{key}")
+    public DigitalContentList putDigitalContent(@RequestBody DigitalContentList digitalContentList, @PathVariable Integer key) {
         
-        return digitalContentListRepository.findById(dcontentId)
+        return digitalContentListRepository.findById(key)
             .map(selDigitalContentList -> {
                 BeanUtils.copyProperties(digitalContentList, selDigitalContentList);
-                selDigitalContentList.setDigitalContentListId(dcontentId);
+                selDigitalContentList.setDigitalContentListId(key);
                 return digitalContentListRepository.save(selDigitalContentList);
             
             }).orElseGet( () -> {
@@ -196,12 +214,13 @@ class BuyController {
     
     /**
      * 구입이력(디지털) 삭제(ID 1건)
-     * @param dcontentId 삭제할 구입이력ID
+     * @param key 삭제할 구입이력ID
+     * @return 삭제된 구입이력(디지털) 데이터
      */
-    @DeleteMapping("/dcontent/{dcontentId}")
-    public DigitalContentList deleteDigitalContent(@PathVariable Integer dcontentId) {
+    @DeleteMapping("/dcontent/{key}")
+    public DigitalContentList deleteDigitalContent(@PathVariable Integer key) {
         
-        Optional<DigitalContentList> dContentDeleteOptional = digitalContentListRepository.findById(dcontentId);
+        Optional<DigitalContentList> dContentDeleteOptional = digitalContentListRepository.findById(key);
         if (!dContentDeleteOptional.isPresent()) {
             return null;
         }
@@ -214,16 +233,33 @@ class BuyController {
 
     /**
      * 배송정보 조회
-     * @return
+     * @return 조회된 배송정보 데이터
      */
     @GetMapping("/shipping")
     public Iterable<ShippingInfo> getShippingInfoList() {
         return shippingInfoRepository.findAll();
     }
 
+    /**
+     * 배송정보 조회(ID)
+     * @param key 배송정보ID
+     * @return 조회된 배송정보 데이터
+     */
+    @GetMapping("/shipping/{key}")
+    public Iterable<ShippingInfo> getShippingInfoListById(@PathVariable Integer key) {
+
+        return Arrays.asList( shippingInfoRepository.findById(key)
+            .map(selectedData -> {
+                return selectedData;
+            
+            }).orElseGet( () -> {
+                return new ShippingInfo();
+            }) );
+    }
+
     /** 배송정보 등록
-     * @param shippingInfo 배송정보 데이터
-     * @return
+     * @param shippingInfo 입력할 배송정보 데이터
+     * @return 입력된 배송정보 데이터
      */
     @PostMapping("/shipping")
     public ShippingInfo postShippingInfoList(@ModelAttribute ShippingInfo shippingInfo) {
@@ -232,16 +268,17 @@ class BuyController {
 
     /**
      * 배송정보 수정(ID 1건)
-     * @param shippingId 배송정보ID
-     * @return
+     * @param shippingInfo 입력할 배송정보 데이터
+     * @param key 수정할 배송정보ID
+     * @return 수정된 배송정보 데이터
      */
-    @PutMapping("/shipping/{shippingId}")
-    public ShippingInfo putShippingInfo(@RequestBody ShippingInfo shippingInfo, @PathVariable Integer shippingId) {
+    @PutMapping("/shipping/{key}")
+    public ShippingInfo putShippingInfo(@RequestBody ShippingInfo shippingInfo, @PathVariable Integer key) {
         
-        return shippingInfoRepository.findById(shippingId)
+        return shippingInfoRepository.findById(key)
             .map(selShippingInfoList -> {
                 BeanUtils.copyProperties(shippingInfo, selShippingInfoList);
-                selShippingInfoList.setShippingInfoId(shippingId);
+                selShippingInfoList.setShippingInfoId(key);
                 return shippingInfoRepository.save(selShippingInfoList);
             
             }).orElseGet( () -> {
@@ -253,12 +290,13 @@ class BuyController {
     
     /**
      * 배송정보 삭제(ID 1건)
-     * @param dcontentId 삭제할 배송정보ID
+     * @param key 삭제할 배송정보ID
+     * @return 삭제된 배송정보 데이터
      */
-    @DeleteMapping("/shipping/{shippingId}")
-    public ShippingInfo deleteShippingInfo(@PathVariable Integer shippingId) {
+    @DeleteMapping("/shipping/{key}")
+    public ShippingInfo deleteShippingInfo(@PathVariable Integer key) {
         
-        Optional<ShippingInfo> shoppingDeleteOptional = shippingInfoRepository.findById(shippingId);
+        Optional<ShippingInfo> shoppingDeleteOptional = shippingInfoRepository.findById(key);
         if (!shoppingDeleteOptional.isPresent()) {
             return null;
         }
