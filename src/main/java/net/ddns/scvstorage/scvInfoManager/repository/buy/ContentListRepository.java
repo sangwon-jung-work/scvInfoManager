@@ -2,16 +2,16 @@ package net.ddns.scvstorage.scvInfoManager.repository.buy;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList.contentType;
 import net.ddns.scvstorage.scvInfoManager.repository.common.ComboData;
 
-public interface ContentListRepository extends CrudRepository<ContentList, Integer> {
+public interface ContentListRepository extends JpaRepository<ContentList, Integer> {
 
-    Iterable<ContentList> findByContentTypeCd(String contentTypeCd);
+    Iterable<ContentList> findByContentTypeCd(contentType contentTypeCd);
 
     Iterable<ContentList> findByContentTypeCdAndContentListId(contentType contentTypeCd, Integer contentListId);
 

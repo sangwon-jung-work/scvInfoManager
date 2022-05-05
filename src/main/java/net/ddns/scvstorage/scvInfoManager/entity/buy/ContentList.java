@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,14 +31,14 @@ public class ContentList {
         Figure("Figure"),
         all("all");
 
-        private String type;
+        private String code;
 
-        private contentType(String type) {
-            this.type = type;
+        private contentType(String code) {
+            this.code = code;
         }
 
         public String getCode() {
-            return type;
+            return code;
         }
     }
 
@@ -48,7 +46,7 @@ public class ContentList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer contentListId; // 구입정보ID
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column
     @NotNull
     private contentType contentTypeCd; // 구입구분코드
@@ -117,12 +115,8 @@ public class ContentList {
         return contentTypeCd;
     }
 
-    public void setContentTypeCd(String contentTypeCd) {
-        try {
-            this.contentTypeCd = contentType.valueOf(contentTypeCd);
-        } catch( IllegalArgumentException | NullPointerException e ) {
-            this.contentTypeCd = null;
-        }
+    public void setContentTypeCd(contentType contentTypeCd) {
+        this.contentTypeCd = contentTypeCd;
     }
 
     /** contentTypeCd 를 String 에서 enum 으로 변환
@@ -142,8 +136,8 @@ public class ContentList {
         
         contentType rtnValue;
         try {
-            // contentType 이 전체(all) 가 아닐 경우, enum 포멧에 맞게 조정
-            contentTypeCd = contentTypeCd.substring(0, 1).concat( contentTypeCd.substring(1) );
+            // contentType 이 전체(all) 가 아닐 경우, enum 포멧에 맞게 조정(첫글자 대문자)
+            contentTypeCd = contentTypeCd.substring(0, 1).toUpperCase().concat( contentTypeCd.substring(1) );
             rtnValue = contentType.valueOf(contentTypeCd);
         } catch( IllegalArgumentException | NullPointerException e ) {
             rtnValue = null;
