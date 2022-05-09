@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.ddns.scvstorage.scvInfoManager.common.util.ObjectUtil;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.*;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList.contentType;
 import net.ddns.scvstorage.scvInfoManager.repository.buy.*;
@@ -122,11 +122,11 @@ public class BuyController {
      * @return 수정된 구입이력 데이터
      */
     @PutMapping("/content/{key}")
-    public ContentList putContent(@RequestBody ContentList contentList, @PathVariable Integer key) {
+    public ContentList putContent(@ModelAttribute ContentList contentList, @PathVariable Integer key) {
         
         return contentListRepository.findById(key)
             .map(selContentList -> {
-                BeanUtils.copyProperties(contentList, selContentList);
+                BeanUtils.copyProperties(contentList, selContentList, ObjectUtil.getNullPropertyNames(contentList));
                 selContentList.setContentListId(key);
                 return contentListRepository.save(selContentList);
             
@@ -197,11 +197,11 @@ public class BuyController {
      * @return 수정된 구입이력(디지털) 데이터
      */
     @PutMapping("/dcontent/{key}")
-    public DigitalContentList putDigitalContent(@RequestBody DigitalContentList digitalContentList, @PathVariable Integer key) {
+    public DigitalContentList putDigitalContent(@ModelAttribute DigitalContentList digitalContentList, @PathVariable Integer key) {
         
         return digitalContentListRepository.findById(key)
             .map(selDigitalContentList -> {
-                BeanUtils.copyProperties(digitalContentList, selDigitalContentList);
+                BeanUtils.copyProperties(digitalContentList, selDigitalContentList, ObjectUtil.getNullPropertyNames(digitalContentList));
                 selDigitalContentList.setDigitalContentListId(key);
                 return digitalContentListRepository.save(selDigitalContentList);
             
@@ -273,11 +273,11 @@ public class BuyController {
      * @return 수정된 배송정보 데이터
      */
     @PutMapping("/shipping/{key}")
-    public ShippingInfo putShippingInfo(@RequestBody ShippingInfo shippingInfo, @PathVariable Integer key) {
+    public ShippingInfo putShippingInfo(@ModelAttribute ShippingInfo shippingInfo, @PathVariable Integer key) {
         
         return shippingInfoRepository.findById(key)
             .map(selShippingInfoList -> {
-                BeanUtils.copyProperties(shippingInfo, selShippingInfoList);
+                BeanUtils.copyProperties(shippingInfo, selShippingInfoList, ObjectUtil.getNullPropertyNames(shippingInfo));
                 selShippingInfoList.setShippingInfoId(key);
                 return shippingInfoRepository.save(selShippingInfoList);
             

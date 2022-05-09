@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.ddns.scvstorage.scvInfoManager.common.util.ObjectUtil;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.*;
 import net.ddns.scvstorage.scvInfoManager.repository.memo.*;
 
@@ -87,11 +87,11 @@ public class MemoController {
      * @return 수정된 공통코드 데이터
      */
     @PutMapping("/comcd/{key}")
-    public CommonCdList putCommonCd(@RequestBody CommonCdList commonCdList, @PathVariable Integer key) {
+    public CommonCdList putCommonCd(@ModelAttribute CommonCdList commonCdList, @PathVariable Integer key) {
         
         return commonCdListRepository.findById(key)
             .map(selCommonCdList -> {
-                BeanUtils.copyProperties(commonCdList, selCommonCdList);
+                BeanUtils.copyProperties(commonCdList, selCommonCdList, ObjectUtil.getNullPropertyNames(commonCdList));
                 selCommonCdList.setCommonCdListId(key);
                 return commonCdListRepository.save(selCommonCdList);
             
@@ -164,11 +164,11 @@ public class MemoController {
      * @return 수정된 방위치 데이터
      */
     @PutMapping("/location/{key}")
-    public LocationCdList putLocationCdList(@RequestBody LocationCdList locationCdList, @PathVariable Integer key) {
+    public LocationCdList putLocationCdList(@ModelAttribute LocationCdList locationCdList, @PathVariable Integer key) {
         
         return locationCdListRepository.findById(key)
             .map(selLocationCdList -> {
-                BeanUtils.copyProperties(locationCdList, selLocationCdList);
+                BeanUtils.copyProperties(locationCdList, selLocationCdList, ObjectUtil.getNullPropertyNames(locationCdList));
                 selLocationCdList.setLocationCdListId(key);
                 return locationCdListRepository.save(selLocationCdList);
             
@@ -241,11 +241,11 @@ public class MemoController {
      * @return 수정된 메모기록 데이터
      */
     @PutMapping("/memotime/{key}")
-    public MemoTime putMemoTime(@RequestBody MemoTime memoTime, @PathVariable Integer key) {
+    public MemoTime putMemoTime(@ModelAttribute MemoTime memoTime, @PathVariable Integer key) {
         
         return memoTimeRepository.findById(key)
             .map(selMemotime -> {
-                BeanUtils.copyProperties(memoTime, selMemotime);
+                BeanUtils.copyProperties(memoTime, selMemotime, ObjectUtil.getNullPropertyNames(memoTime));
                 selMemotime.setMemoTimeId(key);
                 return memoTimeRepository.save(selMemotime);
             
