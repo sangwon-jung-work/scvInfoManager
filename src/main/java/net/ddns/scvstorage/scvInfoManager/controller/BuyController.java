@@ -177,7 +177,7 @@ public class BuyController {
                 return selectedData;
             
             }).orElseGet( () -> {
-                return new DigitalContentList();
+                return null;
             }) );
     }
 
@@ -253,7 +253,7 @@ public class BuyController {
                 return selectedData;
             
             }).orElseGet( () -> {
-                return new ShippingInfo();
+                return null;
             }) );
     }
 

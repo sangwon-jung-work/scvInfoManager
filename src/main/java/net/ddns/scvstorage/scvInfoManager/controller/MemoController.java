@@ -66,7 +66,7 @@ public class MemoController {
                 return selectedData;
             
             }).orElseGet( () -> {
-                return new CommonCdList();
+                return null;
             }) );
     }
 
@@ -143,7 +143,7 @@ public class MemoController {
                 return selectedData;
             
             }).orElseGet( () -> {
-                return new LocationCdList();
+                return null;
             }) );
     }
 
@@ -220,7 +220,7 @@ public class MemoController {
                 return selectedData;
             
             }).orElseGet( () -> {
-                return new MemoTime();
+                return null;
             }) );
     }
 
