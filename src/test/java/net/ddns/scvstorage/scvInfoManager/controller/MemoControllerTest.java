@@ -2,6 +2,7 @@ package net.ddns.scvstorage.scvInfoManager.controller;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import net.ddns.scvstorage.scvInfoManager.ScvInfoManagerApplication;
+import net.ddns.scvstorage.scvInfoManager.common.util.DateUtil;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.CommonCdList;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.LocationCdList;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.MemoTime;
@@ -72,7 +74,7 @@ public class MemoControllerTest {
      * @throws Exception
      */
     @Test
-    @Order(4)
+    @Order(3)
     @DisplayName("CommonCdList create, StatusCode is OK")
     public void postCommonCd_create_getStatusCodeOK() throws Exception {
         
@@ -90,6 +92,29 @@ public class MemoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString( "commonCdListId" )))
                 .andExpect(content().string(containsString( testData.getCdNm() )));
+    }
+
+    /**
+     * 공통코드관리 수정 테스트
+     * 수정할 내용만 전송하여, 수정사항 반영과 기존정보 조회여부 확인
+     * @throws Exception
+     */
+    @Test
+    @Order(4)
+    @DisplayName("CommonCdList modify, StatusCode is OK")
+    public void putCommonCd_modify_getStatusCodeOK() throws Exception {
+        
+        final CommonCdList testData = new CommonCdList();
+        testData.setNote("테스트 수정내용");
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/memo/comcd/22")
+                .param("note", testData.getNote())
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( "commonCdListId" )))
+                .andExpect(content().string(containsString( testData.getNote() )))
+                .andExpect(content().string(containsString( "MEMO_KIND" )));
     }
 
     /**
@@ -145,6 +170,29 @@ public class MemoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString( "locationCdListId" )))
                 .andExpect(content().string(containsString( testData.getLocationDesc() )));
+    }
+
+    /**
+     * 방위치관리 수정 테스트
+     * 수정할 내용만 전송하여, 수정사항 반영과 기존정보 조회여부 확인
+     * @throws Exception
+     */
+    @Test
+    @Order(9)
+    @DisplayName("LocationCdList modify, StatusCode is OK")
+    public void putLocationCdList_modify_getStatusCodeOK() throws Exception {
+        
+        final LocationCdList testData = new LocationCdList();
+        testData.setNote("테스트 비고입력");
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/memo/location/16")
+                .param("note", testData.getNote())
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( "locationCdListId" )))
+                .andExpect(content().string(containsString( testData.getNote() )))
+                .andExpect(content().string(containsString( "강서구" )));
     }
 
     /**
@@ -206,6 +254,34 @@ public class MemoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString( "memoTimeId" )))
                 .andExpect(content().string(containsString( testData.getNote() )));
+    }
+
+    /**
+     * 메모기록 수정 테스트
+     * 수정할 내용만 전송하여, 수정사항 반영과 기존정보 조회여부 확인
+     * @throws Exception
+     */
+    @Test
+    @Order(14)
+    @DisplayName("MemoTime modify, StatusCode is OK")
+    public void putMemoTime_modify_getStatusCodeOK() throws Exception {
+        
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd" );
+
+        final MemoTime testData = new MemoTime();
+        testData.setNote("테스트 비고입력");
+        testData.setMemoDate( DateUtil.getRandomDate() );
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/memo/memotime/2183")
+                .param("note", testData.getNote())
+                .param("memoDate", format.format( testData.getMemoDate() ) )
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( "memoTimeId" )))
+                .andExpect(content().string(containsString( testData.getNote() )))
+                .andExpect(content().string(containsString( format.format( testData.getMemoDate() ) )))
+                .andExpect(content().string(containsString( "017" )));
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import net.ddns.scvstorage.scvInfoManager.ScvInfoManagerApplication;
+import net.ddns.scvstorage.scvInfoManager.common.util.DateUtil;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.DigitalContentList;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ShippingInfo;
@@ -126,6 +128,32 @@ public class BuyControllerTest {
     }
 
     /**
+     * 구입이력 수정 테스트
+     * 수정할 내용만 전송하여, 수정사항 반영과 기존정보 조회여부 확인
+     * @throws Exception
+     */
+    @Test
+    @Order(5)
+    @DisplayName("ContentList modify, StatusCode is OK")
+    public void putContent_modify_getStatusCodeOK() throws Exception {
+        
+        final ContentList testData = new ContentList();
+        testData.setArtist( "fhono" );
+        testData.setContentNote( "넘버링한정생산판 테스트입력" );
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/buy/content/2288")
+                .param("artist", testData.getArtist())
+                .param("contentNote", testData.getContentNote())
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( "contentListId" )))
+                .andExpect(content().string(containsString( testData.getArtist() )))
+                .andExpect(content().string(containsString( testData.getContentNote() )))
+                .andExpect(content().string(containsString( "8631" )));
+    }
+
+    /**
      * 구입이력(디지털) 조회 테스트
      * @return
      * @throws Exception
@@ -160,7 +188,7 @@ public class BuyControllerTest {
     }
 
     /**
-     * 구입이력 입력 테스트
+     * 구입이력(디지털) 입력 테스트
      * @throws Exception
      */
     @Test
@@ -206,6 +234,32 @@ public class BuyControllerTest {
     }
 
     /**
+     * 구입이력(디지털) 수정 테스트
+     * 수정할 내용만 전송하여, 수정사항 반영과 기존정보 조회여부 확인
+     * @throws Exception
+     */
+    @Test
+    @Order(10)
+    @DisplayName("DigitalContentList modify, StatusCode is OK")
+    public void putDigitalContent_modify_getStatusCodeOK() throws Exception {
+        
+        final DigitalContentList testData = new DigitalContentList();
+        testData.setArtist( "大橋아야카" );
+        testData.setMemo("메모입력추가");
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/buy/dcontent/2494")
+                .param("artist", testData.getArtist())
+                .param("memo", testData.getMemo())
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( "digitalContentListId" )))
+                .andExpect(content().string(containsString( testData.getArtist() )))
+                .andExpect(content().string(containsString( testData.getMemo() )))
+                .andExpect(content().string(containsString( "FLAC" )));
+    }
+
+    /**
      * 배송정보 조회 테스트
      */
     @Test
@@ -238,7 +292,7 @@ public class BuyControllerTest {
     }
 
     /**
-     * 구입이력 입력 테스트
+     * 배송정보 입력 테스트
      * @throws Exception
      */
     @Test
@@ -260,5 +314,31 @@ public class BuyControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString( "shippingInfoId" )))
                 .andExpect(content().string(containsString( testData.getBuyingLocation() )));
+    }
+
+    /**
+     * 배송정보 수정 테스트
+     * 수정할 내용만 전송하여, 수정사항 반영과 기존정보 조회여부 확인
+     * @throws Exception
+     */
+    @Test
+    @Order(15)
+    @DisplayName("ShippingInfoList modify, StatusCode is OK")
+    public void putShippingInfo_modify_getStatusCodeOK() throws Exception {
+        
+        final ShippingInfo testData = new ShippingInfo();
+        testData.setOrderNum(DateUtil.getCurrentDate("yyyyMMdd").concat("0004-d5b9a1"));
+        testData.setMemo("테스트 비고입력");
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.put("/buy/shipping/2283")
+                .param("orderNum", testData.getOrderNum())
+                .param("memo", testData.getMemo())
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( "shippingInfoId" )))
+                .andExpect(content().string(containsString( testData.getOrderNum() )))
+                .andExpect(content().string(containsString( testData.getMemo() )))
+                .andExpect(content().string(containsString( "JPY" )));
     }
 }
