@@ -26,7 +26,7 @@ import net.ddns.scvstorage.scvInfoManager.entity.memo.CommonCdList;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.LocationCdList;
 import net.ddns.scvstorage.scvInfoManager.entity.memo.MemoTime;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(classes = ScvInfoManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -118,6 +118,31 @@ public class MemoControllerTest {
     }
 
     /**
+     * 공통코드관리 삭제 테스트
+     * @throws Exception
+     */
+    @Test
+    @Order(5)
+    @DisplayName("CommonCdList delete, StatusCode is OK")
+    public void deleteCommonCd_delete_getStatusCodeOK() throws Exception {
+        
+        String checkId = "1899";
+        String keyPropertyName = "commonCdListId";
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("/memo/comcd/".concat(checkId))
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( keyPropertyName )));
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/memo/comcd/".concat(checkId))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().string( allOf( not( containsString( keyPropertyName ) ) ) ));
+    }
+
+    /**
      * 방위치관리 조회 테스트
      * @throws Exception
      */
@@ -193,6 +218,31 @@ public class MemoControllerTest {
                 .andExpect(content().string(containsString( "locationCdListId" )))
                 .andExpect(content().string(containsString( testData.getNote() )))
                 .andExpect(content().string(containsString( "강서구" )));
+    }
+
+    /**
+     * 방위치관리 삭제 테스트
+     * @throws Exception
+     */
+    @Test
+    @Order(10)
+    @DisplayName("LocationCdList delete, StatusCode is OK")
+    public void deleteLocationCdList_delete_getStatusCodeOK() throws Exception {
+        
+        String checkId = "1982";
+        String keyPropertyName = "locationCdListId";
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("/memo/location/".concat(checkId))
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( keyPropertyName )));
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/memo/location/".concat(checkId))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().string( allOf( not( containsString( keyPropertyName ) ) ) ));
     }
 
     /**
@@ -282,6 +332,31 @@ public class MemoControllerTest {
                 .andExpect(content().string(containsString( testData.getNote() )))
                 .andExpect(content().string(containsString( format.format( testData.getMemoDate() ) )))
                 .andExpect(content().string(containsString( "017" )));
+    }
+
+    /**
+     * 메모기록 삭제 테스트
+     * @throws Exception
+     */
+    @Test
+    @Order(15)
+    @DisplayName("MemoTime delete, StatusCode is OK")
+    public void deleteMemoTime_delete_getStatusCodeOK() throws Exception {
+        
+        String checkId = "2125";
+        String keyPropertyName = "memoTimeId";
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("/memo/memotime/".concat(checkId))
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( keyPropertyName )));
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/memo/memotime/".concat(checkId))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().string( allOf( not( containsString( keyPropertyName ) ) ) ));
     }
 
 }

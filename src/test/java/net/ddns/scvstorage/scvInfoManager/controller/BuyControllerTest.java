@@ -27,7 +27,7 @@ import net.ddns.scvstorage.scvInfoManager.entity.buy.DigitalContentList;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ShippingInfo;
 import net.ddns.scvstorage.scvInfoManager.entity.buy.ContentList.contentType;
 
-import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(classes = ScvInfoManagerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -154,6 +154,31 @@ public class BuyControllerTest {
     }
 
     /**
+     * 구입이력 삭제 테스트
+     * @throws Exception
+     */
+    @Test
+    @Order(6)
+    @DisplayName("ContentList delete, StatusCode is OK")
+    public void deleteContent_delete_getStatusCodeOK() throws Exception {
+        
+        String checkId = "1433";
+        String keyPropertyName = "contentListId";
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("/buy/content/".concat(checkId))
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( keyPropertyName )));
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/buy/content/".concat(ContentList.contentType.Album.name()).concat("/").concat(checkId) )
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().string( allOf( not( containsString( keyPropertyName ) ) ) ));
+    }
+
+    /**
      * 구입이력(디지털) 조회 테스트
      * @return
      * @throws Exception
@@ -260,6 +285,31 @@ public class BuyControllerTest {
     }
 
     /**
+     * 구입이력(디지털) 삭제 테스트
+     * @throws Exception
+     */
+    @Test
+    @Order(11)
+    @DisplayName("DigitalContentList delete, StatusCode is OK")
+    public void deleteDigitalContent_delete_getStatusCodeOK() throws Exception {
+        
+        String checkId = "149";
+        String keyPropertyName = "digitalContentListId";
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("/buy/dcontent/".concat(checkId))
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( keyPropertyName )));
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/buy/dcontent/".concat(checkId))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().string( allOf( not( containsString( keyPropertyName ) ) ) ));
+    }
+
+    /**
      * 배송정보 조회 테스트
      */
     @Test
@@ -340,5 +390,30 @@ public class BuyControllerTest {
                 .andExpect(content().string(containsString( testData.getOrderNum() )))
                 .andExpect(content().string(containsString( testData.getMemo() )))
                 .andExpect(content().string(containsString( "JPY" )));
+    }
+
+    /**
+     * 배송정보 삭제 테스트
+     * @throws Exception
+     */
+    @Test
+    @Order(16)
+    @DisplayName("ShippingInfoList delete, StatusCode is OK")
+    public void deleteShippingInfo_delete_getStatusCodeOK() throws Exception {
+        
+        String checkId = "1113";
+        String keyPropertyName = "shippingInfoId";
+
+        mockMvc.perform(
+            MockMvcRequestBuilders.delete("/buy/shipping/".concat(checkId))
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString( keyPropertyName )));
+        
+        mockMvc.perform(
+            MockMvcRequestBuilders.get("/buy/shipping/".concat(checkId))
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().string( allOf( not( containsString( keyPropertyName ) ) ) ));
     }
 }
