@@ -1792,7 +1792,8 @@ public class StringUtil {
 	 * @see org.springframework.util.StringUtils#trimLeadingWhitespace(String)
 	 */
 	public static String leftTrim(String str) {
-		return org.springframework.util.StringUtils.trimLeadingWhitespace(str);
+		if( (str == null) || str.isEmpty() ) return "";
+		return str.stripLeading();
 	}
 
 	/**
@@ -2634,7 +2635,8 @@ public class StringUtil {
 	 * @see org.springframework.util.StringUtils#trimTrailingWhitespace(String)
 	 */
 	public static String rightTrim(String str) {
-		return org.springframework.util.StringUtils.trimTrailingWhitespace(str);
+		if( (str == null) || str.isEmpty() ) return "";
+		return str.stripTrailing();
 	}
 
 	/**
