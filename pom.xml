@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.15</version>
+		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>net.ddns.scvstorage</groupId>
 	<artifactId>scvInfoManager</artifactId>
-	<version>2.7.15-SNAPSHOT</version>
+	<version>3.2.3-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>scvInfoManager</name>
 	<description>project for memo, list management</description>
@@ -70,7 +70,7 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
-		<!-- javax.validation -->
+		<!-- jakarta.validation -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -92,8 +92,9 @@
 
 		<!-- jstl -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 		
 		<!-- joda-time -->
@@ -204,6 +205,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<configuration>
+					<propertiesEncoding>UTF-8</propertiesEncoding>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
