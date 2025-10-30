@@ -17,7 +17,7 @@ public interface CommonCdListRepository extends CrudRepository<CommonCdList, Int
     List<ComboData> getCdKindList();
 
     // 공통코드 값을 콤보 생성용으로 조회한다
-    @Query(value = "SELECT a.cd AS code, a.cd_nm AS codename "
+    @Query(value = "SELECT a.cd AS code, CONCAT(a.cd,' ',a.cd_nm) AS codename "
             + "FROM common_cd_list a WHERE a.cd_kind = :cdKind ORDER BY a.cd ", nativeQuery = true)
     List<ComboData> getCommonCdData( @Param("cdKind") String cdKind );
 
