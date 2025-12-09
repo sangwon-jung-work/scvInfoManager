@@ -11,7 +11,7 @@
 	<groupId>net.ddns.scvstorage</groupId>
 	<artifactId>scvInfoManager</artifactId>
 	<version>1.0.3</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>scvInfoManager</name>
 	<description>project for memo, list management</description>
 	<properties>
