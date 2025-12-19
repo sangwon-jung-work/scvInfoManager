@@ -13,6 +13,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /** 디지털음원 구입정보 테이블 구조
  *  swjung
  *  2020.04.17
@@ -54,6 +56,7 @@ public class DigitalContentList {
     private Float size; // 용량(MB)
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @NotNull
     private Date buyingDate; // 구입일자
     @Column
@@ -68,6 +71,7 @@ public class DigitalContentList {
     private String releaseLabel; // 레이블
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @NotNull
     private Date releaseDate; // 발매일자
 

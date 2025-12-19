@@ -13,6 +13,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /** 메모기록 테이블 구조
  *  swjung
  *  2020.04.17
@@ -35,6 +37,7 @@ public class MemoTime {
     private String memoTypeCd; // 메모대상(종류) 코드
     @Column(unique = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @NotNull
     private Date memoDate; // 메모일자
     

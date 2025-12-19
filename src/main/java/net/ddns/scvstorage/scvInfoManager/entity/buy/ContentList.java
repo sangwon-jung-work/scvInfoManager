@@ -13,6 +13,8 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /** 상품구입정보 테이블 구조
  *  swjung
  *  2020.04.17
@@ -71,6 +73,7 @@ public class ContentList {
     private String reViewYn; // 재감상여부
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private Date receiptDate; // 수령일자
     @Column
     private String contentBlogUrl; // 관련글
@@ -95,6 +98,7 @@ public class ContentList {
     private String paymentMethod; // 결제수단
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @NotNull
     private Date releaseDate; // 발매일자
     @Column
